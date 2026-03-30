@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CrustyComet</title>
+  <title>CrustyComet Pizza</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #fff8f0;
+    }
+
+    header {
+      background: #ff4d00;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      color: #ff4d00;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pizza {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .pizza:hover {
+      transform: scale(1.05);
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      background: #ff4d00;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>🚀 CrustyComet</h1>
-  <p>It works!! 🔥</p>
+
+<header>🍕 CrustyComet Pizza</header>
+
+<div class="hero">
+  <h1>Hot & Fresh Pizza 🚀</h1>
+  <p>Best pizza in the galaxy</p>
+</div>
+
+<div class="menu">
+
+  <div class="pizza">
+    <h2>Cheese Pizza</h2>
+    <p>$8.99</p>
+    <button onclick="alert('Ordered Cheese Pizza!')">Order</button>
+  </div>
+
+  <div class="pizza">
+    <h2>Pepperoni</h2>
+    <p>$10.99</p>
+    <button onclick="alert('Ordered Pepperoni!')">Order</button>
+  </div>
+
+  <div class="pizza">
+    <h2>Supreme</h2>
+    <p>$12.99</p>
+    <button onclick="alert('Ordered Supreme Pizza!')">Order</button>
+  </div>
+
+</div>
+
 </body>
 </html>
