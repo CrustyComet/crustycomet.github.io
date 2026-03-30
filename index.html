@@ -9,50 +9,55 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg1: #12061f;
+      --bg2: #06010d;
+      --orange: #ff6a00;
+      --orange2: #ff9f1c;
+      --text: #fff7ef;
+      --soft: #ffd9bd;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 145, 0, 0.25);
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: white;
-      background:
-        radial-gradient(circle at top, #1f1147 0%, #090014 45%, #030008 100%);
+      color: var(--text);
+      background: radial-gradient(circle at top, #2a114f 0%, #13051d 45%, #050008 100%);
       overflow-x: hidden;
     }
 
     .stars,
     .stars::before,
     .stars::after {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       content: "";
+      position: fixed;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
       background-repeat: repeat;
-      animation: twinkle 8s linear infinite;
+      animation: twinkle 10s linear infinite;
     }
 
     .stars {
       background-image:
         radial-gradient(2px 2px at 20px 30px, white, transparent),
-        radial-gradient(2px 2px at 100px 80px, #ffd6a5, transparent),
-        radial-gradient(1.5px 1.5px at 200px 150px, white, transparent),
-        radial-gradient(2px 2px at 300px 40px, #ffb703, transparent),
-        radial-gradient(1.5px 1.5px at 400px 120px, white, transparent);
-      background-size: 450px 250px;
+        radial-gradient(2px 2px at 120px 90px, #ffd6a5, transparent),
+        radial-gradient(1.5px 1.5px at 220px 160px, white, transparent),
+        radial-gradient(2px 2px at 300px 70px, #ffb703, transparent);
+      background-size: 420px 260px;
       opacity: 0.7;
     }
 
     .stars::before {
       background-image:
         radial-gradient(2px 2px at 50px 50px, white, transparent),
-        radial-gradient(1.5px 1.5px at 150px 130px, #ffd6a5, transparent),
-        radial-gradient(2px 2px at 250px 90px, white, transparent),
-        radial-gradient(1.5px 1.5px at 350px 170px, #ffb703, transparent);
-      background-size: 500px 300px;
-      opacity: 0.45;
-      animation-duration: 12s;
+        radial-gradient(1.5px 1.5px at 160px 110px, #ffd6a5, transparent),
+        radial-gradient(2px 2px at 250px 160px, white, transparent);
+      background-size: 520px 320px;
+      opacity: 0.35;
+      animation-duration: 14s;
     }
 
     .stars::after {
@@ -60,28 +65,15 @@
         radial-gradient(1.5px 1.5px at 80px 20px, white, transparent),
         radial-gradient(2px 2px at 180px 100px, #ffd6a5, transparent),
         radial-gradient(1.5px 1.5px at 320px 180px, white, transparent);
-      background-size: 550px 320px;
-      opacity: 0.35;
-      animation-duration: 16s;
+      background-size: 560px 320px;
+      opacity: 0.25;
+      animation-duration: 18s;
     }
 
     @keyframes twinkle {
       0% { transform: translateY(0); opacity: 0.7; }
       50% { opacity: 1; }
-      100% { transform: translateY(-10px); opacity: 0.7; }
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 94, 20, 0.9);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 25px rgba(255, 102, 0, 0.7);
-      padding: 18px 20px;
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
+      100% { transform: translateY(-12px); opacity: 0.7; }
     }
 
     .page {
@@ -89,147 +81,346 @@
       z-index: 1;
     }
 
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255, 94, 20, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(255, 102, 0, 0.7);
+    }
+
+    .brand {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn,
+    .hero-btn,
+    .add-btn,
+    .checkout-btn,
+    .clear-btn,
+    .modal-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn,
+    .hero-btn,
+    .modal-btn {
+      padding: 10px 14px;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.16);
+      color: white;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.04);
+      background: rgba(255,255,255,0.24);
+    }
+
     .hero {
-      text-align: center;
-      padding: 60px 20px 30px;
-      animation: fadeUp 1s ease;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
     }
 
-    .hero h1 {
+    .hero-left {
+      animation: fadeUp 0.9s ease;
+    }
+
+    .hero-left h1 {
+      font-size: 3.3rem;
       margin: 0 0 12px;
-      font-size: 3rem;
-      color: #ff8c42;
-      text-shadow: 0 0 15px rgba(255, 140, 66, 0.9);
+      color: #ff9f43;
+      text-shadow: 0 0 18px rgba(255, 140, 66, 0.9);
     }
 
-    .hero p {
+    .hero-left p {
+      color: var(--soft);
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn.primary,
+    .checkout-btn {
+      background: linear-gradient(90deg, var(--orange), var(--orange2));
+      color: white;
+      box-shadow: 0 0 18px rgba(255, 140, 0, 0.45);
+    }
+
+    .hero-btn.secondary,
+    .clear-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .hero-btn:hover,
+    .checkout-btn:hover,
+    .clear-btn:hover,
+    .modal-btn:hover,
+    .add-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 28px rgba(255, 102, 0, 0.15), 0 14px 30px rgba(0, 0, 0, 0.35);
+      animation: fadeUp 1.1s ease;
+    }
+
+    .hero-card h3 {
+      margin-top: 0;
+      color: #ffbf75;
+    }
+
+    .hero-card ul {
       margin: 0;
-      font-size: 1.15rem;
-      color: #ffe8d6;
+      padding-left: 18px;
+      color: var(--soft);
+      line-height: 1.8;
+    }
+
+    .features {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 18px rgba(255, 102, 0, 0.12);
+      animation: fadeUp 1.2s ease;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 8px;
+      color: #ffbf75;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--soft);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px 20px 8px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #fff2e3;
+    }
+
+    .chips {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .chip:hover,
+    .chip.active {
+      background: linear-gradient(90deg, var(--orange), var(--orange2));
+      box-shadow: 0 0 16px rgba(255, 140, 0, 0.55);
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 360px;
       gap: 24px;
-      padding: 20px;
-      max-width: 1400px;
-      margin: 0 auto 50px;
+      max-width: 1300px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
       align-items: start;
-    }
-
-    .menu-section {
-      animation: fadeUp 1.2s ease;
     }
 
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(220px, 1fr));
-      gap: 22px;
+      gap: 20px;
     }
 
-    .pizza-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 153, 51, 0.35);
+    .menu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 22px;
       overflow: hidden;
-      box-shadow:
-        0 0 20px rgba(255, 102, 0, 0.18),
-        0 10px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 20px rgba(255, 102, 0, 0.14), 0 14px 26px rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(8px);
-      transform: translateY(30px);
+      transform: translateY(24px);
       opacity: 0;
       animation: cardIn 0.8s forwards;
     }
 
-    .pizza-card:nth-child(1) { animation-delay: 0.1s; }
-    .pizza-card:nth-child(2) { animation-delay: 0.25s; }
-    .pizza-card:nth-child(3) { animation-delay: 0.4s; }
-    .pizza-card:nth-child(4) { animation-delay: 0.55s; }
-    .pizza-card:nth-child(5) { animation-delay: 0.7s; }
-    .pizza-card:nth-child(6) { animation-delay: 0.85s; }
-
-    .pizza-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow:
-        0 0 30px rgba(255, 119, 0, 0.4),
-        0 16px 30px rgba(0, 0, 0, 0.45);
-      transition: 0.25s ease;
+    .menu-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      transition: 0.22s ease;
+      box-shadow: 0 0 28px rgba(255, 119, 0, 0.35), 0 16px 30px rgba(0, 0, 0, 0.45);
     }
 
-    .pizza-card img {
+    .menu-card img {
       width: 100%;
       height: 190px;
       object-fit: cover;
       display: block;
     }
 
-    .pizza-content {
+    .menu-content {
       padding: 18px;
-      text-align: center;
     }
 
-    .pizza-content h2 {
-      margin: 0 0 10px;
-      font-size: 1.7rem;
-      color: #fff3e6;
+    .menu-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .pizza-content p {
-      margin: 0 0 12px;
-      color: #ffd7ba;
-      min-height: 42px;
+    .menu-top h3 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+    }
+
+    .badge {
+      background: linear-gradient(90deg, #ff7b00, #ffb703);
+      color: white;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 0 14px rgba(255, 166, 0, 0.35);
+    }
+
+    .desc {
+      color: var(--soft);
+      line-height: 1.45;
+      min-height: 46px;
+      font-size: 0.95rem;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: #ffd4a7;
+      font-size: 0.9rem;
+      margin: 12px 0;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
     }
 
     .price {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: bold;
-      color: #ffb25b;
-      margin-bottom: 14px;
-      text-shadow: 0 0 10px rgba(255, 178, 91, 0.5);
-    }
-
-    .add-btn,
-    .checkout-btn,
-    .clear-btn {
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s ease;
+      color: #ffbf75;
+      text-shadow: 0 0 10px rgba(255, 178, 91, 0.45);
     }
 
     .add-btn {
-      padding: 12px 18px;
-      background: linear-gradient(90deg, #ff5e14, #ff9f1c);
+      padding: 12px 16px;
+      background: linear-gradient(90deg, var(--orange), var(--orange2));
       color: white;
-      box-shadow: 0 0 15px rgba(255, 119, 0, 0.45);
-    }
-
-    .add-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 22px rgba(255, 140, 0, 0.9);
+      box-shadow: 0 0 15px rgba(255, 119, 0, 0.4);
     }
 
     .cart {
       position: sticky;
-      top: 100px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 153, 51, 0.35);
+      top: 92px;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 22px;
       padding: 20px;
-      box-shadow:
-        0 0 24px rgba(255, 102, 0, 0.18),
-        0 12px 28px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 22px rgba(255, 102, 0, 0.14), 0 14px 28px rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(10px);
-      animation: fadeUp 1.2s ease;
     }
 
     .cart h2 {
       margin-top: 0;
       text-align: center;
-      color: #ffb25b;
-      text-shadow: 0 0 12px rgba(255, 178, 91, 0.5);
+      color: #ffbf75;
+    }
+
+    .signin-box {
+      background: rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .signin-box p {
+      margin: 0 0 12px;
+      color: var(--soft);
+      font-size: 0.95rem;
+    }
+
+    .signin-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .signin-buttons button {
+      flex: 1;
     }
 
     #cartItems {
@@ -239,92 +430,189 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      max-height: 260px;
+      overflow: auto;
     }
 
     #cartItems li {
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255,255,255,0.07);
       border-radius: 12px;
       padding: 10px 12px;
-      color: #fff2e8;
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      font-size: 0.95rem;
+      color: #fff2e8;
+      font-size: 0.94rem;
     }
 
     .empty {
-      text-align: center;
-      color: #ffd7ba;
-      opacity: 0.9;
+      justify-content: center !important;
+      color: var(--soft);
     }
 
     .cart-total {
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-size: 1.25rem;
       text-align: center;
-      margin: 16px 0;
-      color: #fff3e6;
+      font-weight: bold;
+      margin: 14px 0;
     }
 
     .cart-buttons {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 10px;
     }
 
     .checkout-btn,
     .clear-btn {
       flex: 1;
-      padding: 12px;
       min-width: 120px;
+      padding: 12px;
     }
 
-    .checkout-btn {
-      background: linear-gradient(90deg, #ff7b00, #ffb703);
-      color: white;
-      box-shadow: 0 0 15px rgba(255, 166, 0, 0.4);
+    .cards-accepted {
+      margin-top: 14px;
+      text-align: center;
+      color: var(--soft);
+      font-size: 0.92rem;
     }
 
-    .checkout-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px rgba(255, 183, 3, 0.8);
+    .cards-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
     }
 
-    .clear-btn {
-      background: rgba(255, 255, 255, 0.12);
-      color: white;
-    }
-
-    .clear-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-      transform: scale(1.03);
+    .pay-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.9rem;
     }
 
     .footer {
       text-align: center;
-      padding: 25px 15px 40px;
-      color: #ffd7ba;
+      padding: 18px 20px 40px;
+      color: var(--soft);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 18px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 460px;
+      background: #160b22;
+      border: 1px solid rgba(255, 140, 0, 0.22);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 0 30px rgba(255, 102, 0, 0.22), 0 18px 34px rgba(0,0,0,0.5);
+      animation: fadeUp 0.25s ease;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      color: #ffbf75;
+    }
+
+    .modal p {
+      color: var(--soft);
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      color: #ffe5d0;
+      font-size: 0.92rem;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 12px 14px;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .field input::placeholder {
+      color: #e8cbb3;
+    }
+
+    .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn.primary {
+      background: linear-gradient(90deg, var(--orange), var(--orange2));
+      color: white;
+      flex: 1;
+    }
+
+    .modal-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      flex: 1;
+    }
+
+    .user-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
     }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes cardIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1150px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .layout {
         grid-template-columns: 1fr;
       }
@@ -340,23 +628,40 @@
 
     @media (max-width: 700px) {
       header {
+        padding: 14px;
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .brand {
         font-size: 1.5rem;
       }
 
-      .hero h1 {
-        font-size: 2.2rem;
+      .hero-left h1 {
+        font-size: 2.3rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
       }
 
       .menu-grid {
         grid-template-columns: 1fr;
       }
 
-      .layout {
-        padding: 14px;
+      .two-cols {
+        grid-template-columns: 1fr;
       }
 
-      .pizza-card img {
-        height: 210px;
+      .signin-buttons,
+      .hero-buttons,
+      .cart-buttons,
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .menu-card img {
+        height: 220px;
       }
     }
   </style>
@@ -365,73 +670,211 @@
   <div class="stars"></div>
 
   <div class="page">
-    <header>🍕 CrustyComet Pizza</header>
+    <header>
+      <div class="brand">🍕 CrustyComet Pizza</div>
+      <div class="nav-actions">
+        <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
+        <button class="nav-btn" onclick="openModal('signupModal')">Create Account</button>
+      </div>
+    </header>
 
     <section class="hero">
-      <h1>Hot & Fresh Pizza 🚀</h1>
-      <p>Best pizza in the galaxy. Fast delivery from the crust side of space.</p>
+      <div class="hero-left">
+        <h1>Hot & Fresh Pizza 🚀</h1>
+        <p>
+          Order pizza, fries, drinks, and desserts with a glowing space-food vibe.
+          It feels like a real delivery app, but it’s still your website.
+        </p>
+        <div class="hero-buttons">
+          <button class="hero-btn primary" onclick="scrollToMenu()">Order Now</button>
+          <button class="hero-btn secondary" onclick="openModal('signinModal')">Sign In Like an App</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Why people love CrustyComet</h3>
+        <ul>
+          <li>Fresh pizza baked at warp speed</li>
+          <li>Crispy fries and cold drinks</li>
+          <li>Desserts for the sweet ending</li>
+          <li>Fake checkout with card details UI</li>
+        </ul>
+      </div>
     </section>
 
+    <section class="features">
+      <div class="feature-card">
+        <h3>⚡ Fast Delivery</h3>
+        <p>From oven to orbit in record time.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🍕 Big Menu</h3>
+        <p>Pizza, fries, desserts, and drinks all in one place.</p>
+      </div>
+      <div class="feature-card">
+        <h3>💳 Easy Checkout</h3>
+        <p>Includes a fake card details form to feel real.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📱 Phone Friendly</h3>
+        <p>Looks good on mobile too.</p>
+      </div>
+    </section>
+
+    <div class="section-title" id="menu">Menu</div>
+
+    <div class="chips">
+      <button class="chip active" onclick="filterMenu('all', this)">All</button>
+      <button class="chip" onclick="filterMenu('pizza', this)">Pizza</button>
+      <button class="chip" onclick="filterMenu('fries', this)">Fries</button>
+      <button class="chip" onclick="filterMenu('drinks', this)">Drinks</button>
+      <button class="chip" onclick="filterMenu('desserts', this)">Desserts</button>
+    </div>
+
     <div class="layout">
-      <section class="menu-section">
-        <div class="menu-grid">
-          <div class="pizza-card">
+      <section>
+        <div class="menu-grid" id="menuGrid">
+          <div class="menu-card" data-category="pizza" style="animation-delay:0.1s">
             <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Cheese Pizza">
-            <div class="pizza-content">
-              <h2>Cheese Pizza</h2>
-              <p>Classic cheesy goodness with comet-melt mozzarella.</p>
-              <div class="price">$8.99</div>
-              <button class="add-btn" onclick="addToCart('Cheese Pizza', 8.99)">Add to Cart</button>
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Cheese Pizza</h3>
+                <span class="badge">Popular</span>
+              </div>
+              <div class="desc">Classic cheesy pizza with extra melt and golden crust.</div>
+              <div class="meta"><span>⭐ 4.8</span><span>20-30 min</span></div>
+              <div class="price-row">
+                <div class="price">$8.99</div>
+                <button class="add-btn" onclick="addToCart('Cheese Pizza', 8.99)">Add</button>
+              </div>
             </div>
           </div>
 
-          <div class="pizza-card">
+          <div class="menu-card" data-category="pizza" style="animation-delay:0.2s">
             <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=900&q=80" alt="Pepperoni Pizza">
-            <div class="pizza-content">
-              <h2>Pepperoni</h2>
-              <p>Loaded with spicy pepperoni and glowing flavor.</p>
-              <div class="price">$10.99</div>
-              <button class="add-btn" onclick="addToCart('Pepperoni', 10.99)">Add to Cart</button>
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Pepperoni</h3>
+                <span class="badge">Hot</span>
+              </div>
+              <div class="desc">Spicy pepperoni, bubbling cheese, and comet-red sauce.</div>
+              <div class="meta"><span>⭐ 4.9</span><span>20-30 min</span></div>
+              <div class="price-row">
+                <div class="price">$10.99</div>
+                <button class="add-btn" onclick="addToCart('Pepperoni', 10.99)">Add</button>
+              </div>
             </div>
           </div>
 
-          <div class="pizza-card">
+          <div class="menu-card" data-category="pizza" style="animation-delay:0.3s">
             <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=900&q=80" alt="Supreme Pizza">
-            <div class="pizza-content">
-              <h2>Supreme</h2>
-              <p>Pepperoni, veggies, and everything the galaxy loves.</p>
-              <div class="price">$12.99</div>
-              <button class="add-btn" onclick="addToCart('Supreme', 12.99)">Add to Cart</button>
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Supreme</h3>
+                <span class="badge">Loaded</span>
+              </div>
+              <div class="desc">Pepperoni, peppers, onions, olives, and cosmic flavor.</div>
+              <div class="meta"><span>⭐ 4.7</span><span>25-35 min</span></div>
+              <div class="price-row">
+                <div class="price">$12.99</div>
+                <button class="add-btn" onclick="addToCart('Supreme', 12.99)">Add</button>
+              </div>
             </div>
           </div>
 
-          <div class="pizza-card">
-            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80" alt="BBQ Chicken Pizza">
-            <div class="pizza-content">
-              <h2>BBQ Chicken</h2>
-              <p>Sweet smoky sauce with juicy chicken pieces.</p>
-              <div class="price">$11.99</div>
-              <button class="add-btn" onclick="addToCart('BBQ Chicken', 11.99)">Add to Cart</button>
+          <div class="menu-card" data-category="fries" style="animation-delay:0.4s">
+            <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=900&q=80" alt="Fries">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Classic Fries</h3>
+                <span class="badge">Crispy</span>
+              </div>
+              <div class="desc">Golden fries with crunchy edges and soft center.</div>
+              <div class="meta"><span>⭐ 4.6</span><span>10-15 min</span></div>
+              <div class="price-row">
+                <div class="price">$3.99</div>
+                <button class="add-btn" onclick="addToCart('Classic Fries', 3.99)">Add</button>
+              </div>
             </div>
           </div>
 
-          <div class="pizza-card">
-            <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=80" alt="Veggie Pizza">
-            <div class="pizza-content">
-              <h2>Veggie</h2>
-              <p>Fresh peppers, onions, olives, and cosmic crunch.</p>
-              <div class="price">$9.99</div>
-              <button class="add-btn" onclick="addToCart('Veggie', 9.99)">Add to Cart</button>
+          <div class="menu-card" data-category="fries" style="animation-delay:0.5s">
+            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=900&q=80" alt="Loaded Fries">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Loaded Fries</h3>
+                <span class="badge">Cheesy</span>
+              </div>
+              <div class="desc">Fries topped with cheese sauce and crispy bacon bits.</div>
+              <div class="meta"><span>⭐ 4.8</span><span>15-20 min</span></div>
+              <div class="price-row">
+                <div class="price">$5.99</div>
+                <button class="add-btn" onclick="addToCart('Loaded Fries', 5.99)">Add</button>
+              </div>
             </div>
           </div>
 
-          <div class="pizza-card">
-            <img src="https://images.unsplash.com/photo-1548365328-9f547fb0953b?auto=format&fit=crop&w=900&q=80" alt="Meat Lovers Pizza">
-            <div class="pizza-content">
-              <h2>Meat Lovers</h2>
-              <p>Packed with beef, sausage, bacon, and pepperoni.</p>
-              <div class="price">$13.99</div>
-              <button class="add-btn" onclick="addToCart('Meat Lovers', 13.99)">Add to Cart</button>
+          <div class="menu-card" data-category="drinks" style="animation-delay:0.6s">
+            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80" alt="Soda">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Galaxy Cola</h3>
+                <span class="badge">Cold</span>
+              </div>
+              <div class="desc">Ice-cold fizzy soda to go with your pizza order.</div>
+              <div class="meta"><span>⭐ 4.5</span><span>Ready now</span></div>
+              <div class="price-row">
+                <div class="price">$2.49</div>
+                <button class="add-btn" onclick="addToCart('Galaxy Cola', 2.49)">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card" data-category="drinks" style="animation-delay:0.7s">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=80" alt="Milkshake">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Comet Shake</h3>
+                <span class="badge">Sweet</span>
+              </div>
+              <div class="desc">Creamy vanilla shake with a bright orange drizzle.</div>
+              <div class="meta"><span>⭐ 4.7</span><span>5-10 min</span></div>
+              <div class="price-row">
+                <div class="price">$4.99</div>
+                <button class="add-btn" onclick="addToCart('Comet Shake', 4.99)">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card" data-category="desserts" style="animation-delay:0.8s">
+            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=900&q=80" alt="Brownie">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Brownie Blast</h3>
+                <span class="badge">Rich</span>
+              </div>
+              <div class="desc">Warm chocolate brownie with gooey center.</div>
+              <div class="meta"><span>⭐ 4.9</span><span>10 min</span></div>
+              <div class="price-row">
+                <div class="price">$4.49</div>
+                <button class="add-btn" onclick="addToCart('Brownie Blast', 4.49)">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-card" data-category="desserts" style="animation-delay:0.9s">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=80" alt="Ice Cream">
+            <div class="menu-content">
+              <div class="menu-top">
+                <h3>Rocket Sundae</h3>
+                <span class="badge">Frozen</span>
+              </div>
+              <div class="desc">Vanilla ice cream with chocolate syrup and sprinkles.</div>
+              <div class="meta"><span>⭐ 4.8</span><span>Ready now</span></div>
+              <div class="price-row">
+                <div class="price">$3.99</div>
+                <button class="add-btn" onclick="addToCart('Rocket Sundae', 3.99)">Add</button>
+              </div>
             </div>
           </div>
         </div>
@@ -439,25 +882,192 @@
 
       <aside class="cart">
         <h2>🛒 Your Cart</h2>
+
+        <div class="signin-box" id="signinBox">
+          <p>Sign in for a more real app feel.</p>
+          <div class="signin-buttons">
+            <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
+            <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
+          </div>
+        </div>
+
         <ul id="cartItems">
           <li class="empty">Your cart is empty.</li>
         </ul>
+
         <div class="cart-total">Total: $<span id="total">0.00</span></div>
+
         <div class="cart-buttons">
-          <button class="checkout-btn" onclick="checkout()">Fake Checkout</button>
+          <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
           <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+        </div>
+
+        <div class="cards-accepted">
+          Cards accepted
+          <div class="cards-row">
+            <div class="pay-card">Visa</div>
+            <div class="pay-card">Mastercard</div>
+            <div class="pay-card">Amex</div>
+          </div>
         </div>
       </aside>
     </div>
 
     <div class="footer">
-      🌌 CrustyComet Pizza — delivered across the universe
+      🌌 CrustyComet Pizza — pizza, fries, drinks, and desserts across the universe
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="signinModal">
+    <div class="modal">
+      <h2>Sign In</h2>
+      <p>Fake login screen for your website.</p>
+      <div class="field">
+        <label>Email</label>
+        <input id="signinEmail" type="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="Enter password">
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="signIn()">Sign In</button>
+        <button class="modal-btn secondary" onclick="closeModal('signinModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="signupModal">
+    <div class="modal">
+      <h2>Create Account</h2>
+      <p>Fake account creation, just for the app look.</p>
+      <div class="field">
+        <label>Name</label>
+        <input id="signupName" type="text" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="Create password">
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="createAccount()">Create Account</button>
+        <button class="modal-btn secondary" onclick="closeModal('signupModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal">
+      <h2>Checkout</h2>
+      <p>Enter fake card details to finish your fake order.</p>
+
+      <div class="field">
+        <label>Full Name</label>
+        <input id="checkoutName" type="text" placeholder="Cardholder name">
+      </div>
+
+      <div class="field">
+        <label>Address</label>
+        <input type="text" placeholder="123 Space Street">
+      </div>
+
+      <div class="field">
+        <label>Card Number</label>
+        <input type="text" placeholder="1234 5678 9012 3456">
+      </div>
+
+      <div class="two-cols">
+        <div class="field">
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY">
+        </div>
+        <div class="field">
+          <label>CVV</label>
+          <input type="text" placeholder="123">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Delivery Method</label>
+        <select>
+          <option>Standard Delivery</option>
+          <option>Express Delivery</option>
+          <option>Pickup</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="placeOrder()">Place Order</button>
+        <button class="modal-btn secondary" onclick="closeModal('checkoutModal')">Cancel</button>
+      </div>
     </div>
   </div>
 
   <script>
     let cart = [];
     let total = 0;
+    let signedInUser = "";
+
+    function scrollToMenu() {
+      document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("show");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("show");
+    }
+
+    function signIn() {
+      const email = document.getElementById("signinEmail").value.trim();
+      if (!email) {
+        alert("Enter an email first.");
+        return;
+      }
+      signedInUser = email.split("@")[0];
+      updateSignInBox();
+      closeModal("signinModal");
+      alert("Signed in as " + signedInUser + "!");
+    }
+
+    function createAccount() {
+      const name = document.getElementById("signupName").value.trim();
+      signedInUser = name || "Customer";
+      updateSignInBox();
+      closeModal("signupModal");
+      alert("Account created for " + signedInUser + "!");
+    }
+
+    function updateSignInBox() {
+      const box = document.getElementById("signinBox");
+      if (signedInUser) {
+        box.innerHTML = `
+          <div class="user-pill">Signed in as ${signedInUser}</div>
+          <p>Your fake account is active and ready to order.</p>
+          <div class="signin-buttons">
+            <button class="nav-btn" onclick="signOut()">Sign Out</button>
+          </div>
+        `;
+      }
+    }
+
+    function signOut() {
+      signedInUser = "";
+      document.getElementById("signinBox").innerHTML = `
+        <p>Sign in for a more real app feel.</p>
+        <div class="signin-buttons">
+          <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
+          <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
+        </div>
+      `;
+      alert("Signed out.");
+    }
 
     function addToCart(name, price) {
       cart.push({ name, price });
@@ -468,13 +1078,12 @@
     function updateCart() {
       const cartItems = document.getElementById("cartItems");
       const totalText = document.getElementById("total");
-
       cartItems.innerHTML = "";
 
       if (cart.length === 0) {
         cartItems.innerHTML = '<li class="empty">Your cart is empty.</li>';
       } else {
-        cart.forEach((item, index) => {
+        cart.forEach((item) => {
           const li = document.createElement("li");
           li.innerHTML = `
             <span>${item.name}</span>
@@ -493,15 +1102,49 @@
       updateCart();
     }
 
-    function checkout() {
+    function openCheckout() {
       if (cart.length === 0) {
         alert("Your cart is empty!");
         return;
       }
-
-      alert("Thanks for your order! 🚀🍕\nThis is a fake checkout for now.");
-      clearCart();
+      openModal("checkoutModal");
     }
+
+    function placeOrder() {
+      const name = document.getElementById("checkoutName").value.trim();
+      if (!name) {
+        alert("Enter a name for checkout.");
+        return;
+      }
+      alert("Order placed! 🚀🍕\nThanks, " + name + "!\nThis is a fake checkout.");
+      clearCart();
+      closeModal("checkoutModal");
+    }
+
+    function filterMenu(category, button) {
+      const cards = document.querySelectorAll(".menu-card");
+      const chips = document.querySelectorAll(".chip");
+
+      chips.forEach(chip => chip.classList.remove("active"));
+      button.classList.add("active");
+
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute("data-category");
+        if (category === "all" || category === cardCategory) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+      backdrop.addEventListener("click", function(e) {
+        if (e.target === backdrop) {
+          backdrop.classList.remove("show");
+        }
+      });
+    });
   </script>
 </body>
 </html>
