@@ -8,10 +8,11 @@
       box-sizing: border-box;
     }
 .logo {
-  width: 300px;
-  height: 300px;
+  height: 80px;
+  width: auto;
   object-fit: contain;
   display: block;
+}
 }
     :root {
       --bg1: #12061f;
@@ -25,7 +26,19 @@
       --green: #22c55e;
       --red: #ef4444;
     }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
 
+  background: #2a003f; /* 🔥 your color */
+  box-shadow: 0 0 25px rgba(255, 102, 0, 0.5);
+}
     body {
       margin: 0;
       font-family: Arial, sans-serif;
