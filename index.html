@@ -1283,3 +1283,46 @@
   </script>
 </body>
 </html>
+<!-- ONLY CHANGE: HEADER + LOGO STYLE ADDED -->
+<!-- EVERYTHING ELSE IS YOUR SAME CODE -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrustyComet Pizza</title>
+
+<style>
+/* KEEP YOUR EXISTING CSS ABOVE */
+
+/* ADD THIS */
+.logo {
+  height: 50px;
+  filter: drop-shadow(0 0 10px orange);
+  transition: 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img src="logo.png" class="logo">
+  </div>
+
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
+    <button class="nav-btn" onclick="openModal('signupModal')">Create Account</button>
+  </div>
+</header>
+
+<!-- EVERYTHING BELOW = KEEP YOUR ORIGINAL CODE -->
+
+</body>
+</html>
