@@ -18,6 +18,8 @@
       --soft: #ffd9bd;
       --card: rgba(255, 255, 255, 0.08);
       --border: rgba(255, 145, 0, 0.25);
+      --green: #22c55e;
+      --red: #ef4444;
     }
 
     body {
@@ -111,7 +113,9 @@
     .add-btn,
     .checkout-btn,
     .clear-btn,
-    .modal-btn {
+    .modal-btn,
+    .qty-btn,
+    .remove-btn {
       border: none;
       cursor: pointer;
       border-radius: 12px;
@@ -187,7 +191,9 @@
     .checkout-btn:hover,
     .clear-btn:hover,
     .modal-btn:hover,
-    .add-btn:hover {
+    .add-btn:hover,
+    .qty-btn:hover,
+    .remove-btn:hover {
       transform: translateY(-2px) scale(1.03);
     }
 
@@ -280,7 +286,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr 380px;
       gap: 24px;
       max-width: 1300px;
       margin: 0 auto 60px;
@@ -430,31 +436,91 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 260px;
+      max-height: 320px;
       overflow: auto;
     }
 
     #cartItems li {
       background: rgba(255,255,255,0.07);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
+      border-radius: 14px;
+      padding: 12px;
       color: #fff2e8;
       font-size: 0.94rem;
     }
 
+    .cart-item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.14);
+      color: white;
+    }
+
+    .qty-number {
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-btn {
+      background: rgba(239, 68, 68, 0.18);
+      color: #ffd3d3;
+      padding: 8px 12px;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
     .empty {
-      justify-content: center !important;
+      text-align: center;
       color: var(--soft);
     }
 
-    .cart-total {
-      font-size: 1.25rem;
-      text-align: center;
+    .summary {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: #ffe7d2;
+    }
+
+    .summary-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-total {
+      font-size: 1.15rem;
       font-weight: bold;
-      margin: 14px 0;
+      color: #fff7ef;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 10px;
+      margin-top: 10px;
     }
 
     .cart-buttons {
@@ -683,11 +749,11 @@
         <h1>Hot & Fresh Pizza 🚀</h1>
         <p>
           Order pizza, fries, drinks, and desserts with a glowing space-food vibe.
-          It feels like a real delivery app, but it’s still your website.
+          Fast delivery, easy checkout, and a menu built for hungry people across the galaxy.
         </p>
         <div class="hero-buttons">
           <button class="hero-btn primary" onclick="scrollToMenu()">Order Now</button>
-          <button class="hero-btn secondary" onclick="openModal('signinModal')">Sign In Like an App</button>
+          <button class="hero-btn secondary" onclick="openModal('signinModal')">Sign In</button>
         </div>
       </div>
 
@@ -695,9 +761,9 @@
         <h3>Why people love CrustyComet</h3>
         <ul>
           <li>Fresh pizza baked at warp speed</li>
-          <li>Crispy fries and cold drinks</li>
-          <li>Desserts for the sweet ending</li>
-          <li>Fake checkout with card details UI</li>
+          <li>Crispy fries, cold drinks, and sweet desserts</li>
+          <li>Clean checkout flow and order summary</li>
+          <li>Looks great on desktop and phone</li>
         </ul>
       </div>
     </section>
@@ -713,7 +779,7 @@
       </div>
       <div class="feature-card">
         <h3>💳 Easy Checkout</h3>
-        <p>Includes a fake card details form to feel real.</p>
+        <p>Simple payment details form and smooth ordering flow.</p>
       </div>
       <div class="feature-card">
         <h3>📱 Phone Friendly</h3>
@@ -884,7 +950,7 @@
         <h2>🛒 Your Cart</h2>
 
         <div class="signin-box" id="signinBox">
-          <p>Sign in for a more real app feel.</p>
+          <p>Sign in to save your details and check out faster.</p>
           <div class="signin-buttons">
             <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
             <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
@@ -895,7 +961,24 @@
           <li class="empty">Your cart is empty.</li>
         </ul>
 
-        <div class="cart-total">Total: $<span id="total">0.00</span></div>
+        <div class="summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>$<span id="subtotal">0.00</span></span>
+          </div>
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span>$<span id="delivery">3.99</span></span>
+          </div>
+          <div class="summary-row">
+            <span>Tax</span>
+            <span>$<span id="tax">0.00</span></span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span>$<span id="grandTotal">0.00</span></span>
+          </div>
+        </div>
 
         <div class="cart-buttons">
           <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
@@ -921,7 +1004,7 @@
   <div class="modal-backdrop" id="signinModal">
     <div class="modal">
       <h2>Sign In</h2>
-      <p>Fake login screen for your website.</p>
+      <p>Sign in to your account.</p>
       <div class="field">
         <label>Email</label>
         <input id="signinEmail" type="email" placeholder="you@example.com">
@@ -940,7 +1023,7 @@
   <div class="modal-backdrop" id="signupModal">
     <div class="modal">
       <h2>Create Account</h2>
-      <p>Fake account creation, just for the app look.</p>
+      <p>Create your account to get started.</p>
       <div class="field">
         <label>Name</label>
         <input id="signupName" type="text" placeholder="Your name">
@@ -963,7 +1046,7 @@
   <div class="modal-backdrop" id="checkoutModal">
     <div class="modal">
       <h2>Checkout</h2>
-      <p>Enter fake card details to finish your fake order.</p>
+      <p>Enter your payment and delivery details.</p>
 
       <div class="field">
         <label>Full Name</label>
@@ -1009,7 +1092,6 @@
 
   <script>
     let cart = [];
-    let total = 0;
     let signedInUser = "";
 
     function scrollToMenu() {
@@ -1041,7 +1123,7 @@
       signedInUser = name || "Customer";
       updateSignInBox();
       closeModal("signupModal");
-      alert("Account created for " + signedInUser + "!");
+      alert("Welcome, " + signedInUser + "!");
     }
 
     function updateSignInBox() {
@@ -1049,7 +1131,7 @@
       if (signedInUser) {
         box.innerHTML = `
           <div class="user-pill">Signed in as ${signedInUser}</div>
-          <p>Your fake account is active and ready to order.</p>
+          <p>Your account is ready for faster checkout.</p>
           <div class="signin-buttons">
             <button class="nav-btn" onclick="signOut()">Sign Out</button>
           </div>
@@ -1060,7 +1142,7 @@
     function signOut() {
       signedInUser = "";
       document.getElementById("signinBox").innerHTML = `
-        <p>Sign in for a more real app feel.</p>
+        <p>Sign in to save your details and check out faster.</p>
         <div class="signin-buttons">
           <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
           <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
@@ -1070,14 +1152,52 @@
     }
 
     function addToCart(name, price) {
-      cart.push({ name, price });
-      total += price;
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
       updateCart();
+    }
+
+    function changeQuantity(name, amount) {
+      const item = cart.find(i => i.name === name);
+      if (!item) return;
+
+      item.quantity += amount;
+
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.name !== name);
+      }
+
+      updateCart();
+    }
+
+    function removeItem(name) {
+      cart = cart.filter(item => item.name !== name);
+      updateCart();
+    }
+
+    function getSubtotal() {
+      return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    }
+
+    function getTax(subtotal) {
+      return subtotal * 0.13;
+    }
+
+    function getDelivery(subtotal) {
+      return subtotal > 0 ? 3.99 : 0;
     }
 
     function updateCart() {
       const cartItems = document.getElementById("cartItems");
-      const totalText = document.getElementById("total");
+      const subtotalText = document.getElementById("subtotal");
+      const deliveryText = document.getElementById("delivery");
+      const taxText = document.getElementById("tax");
+      const grandTotalText = document.getElementById("grandTotal");
+
       cartItems.innerHTML = "";
 
       if (cart.length === 0) {
@@ -1086,19 +1206,36 @@
         cart.forEach((item) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <span>${item.name}</span>
-            <span>$${item.price.toFixed(2)}</span>
+            <div class="cart-item-top">
+              <span>${item.name}</span>
+              <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+            <div class="cart-item-controls">
+              <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', -1)">-</button>
+                <span class="qty-number">${item.quantity}</span>
+                <button class="qty-btn" onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeItem('${item.name.replace(/'/g, "\\'")}')">Remove</button>
+            </div>
           `;
           cartItems.appendChild(li);
         });
       }
 
-      totalText.textContent = total.toFixed(2);
+      const subtotal = getSubtotal();
+      const delivery = getDelivery(subtotal);
+      const tax = getTax(subtotal);
+      const grandTotal = subtotal + delivery + tax;
+
+      subtotalText.textContent = subtotal.toFixed(2);
+      deliveryText.textContent = delivery.toFixed(2);
+      taxText.textContent = tax.toFixed(2);
+      grandTotalText.textContent = grandTotal.toFixed(2);
     }
 
     function clearCart() {
       cart = [];
-      total = 0;
       updateCart();
     }
 
@@ -1116,7 +1253,7 @@
         alert("Enter a name for checkout.");
         return;
       }
-      alert("Order placed! 🚀🍕\nThanks, " + name + "!\nThis is a fake checkout.");
+      alert("Order placed successfully! 🚀🍕\nThank you, " + name + "!");
       clearCart();
       closeModal("checkoutModal");
     }
@@ -1130,11 +1267,7 @@
 
       cards.forEach(card => {
         const cardCategory = card.getAttribute("data-category");
-        if (category === "all" || category === cardCategory) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
+        card.style.display = (category === "all" || category === cardCategory) ? "block" : "none";
       });
     }
 
@@ -1145,6 +1278,8 @@
         }
       });
     });
+
+    updateCart();
   </script>
 </body>
 </html>
