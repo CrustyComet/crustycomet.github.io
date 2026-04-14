@@ -3,1968 +3,757 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CrustyComet Pizza</title>
+  <title>Vdeio Chat</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg1: #190824;
-      --bg2: #07010d;
-      --orange: #ff6a00;
-      --orange2: #ff9f1c;
-      --text: #fff7ef;
-      --soft: #ffd9bd;
-      --card: rgba(255, 255, 255, 0.08);
-      --card2: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 145, 0, 0.22);
-      --green: #22c55e;
-      --red: #ef4444;
-      --yellow: #facc15;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at top, #2d0e42 0%, #13051d 40%, #050008 100%);
-      overflow-x: hidden;
-    }
-
-    .stars,
-    .stars::before,
-    .stars::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-repeat: repeat;
-      animation: twinkle 12s linear infinite;
-    }
-
-    .stars {
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, white, transparent),
-        radial-gradient(2px 2px at 120px 90px, #ffd6a5, transparent),
-        radial-gradient(1.5px 1.5px at 220px 160px, white, transparent),
-        radial-gradient(2px 2px at 300px 70px, #ffb703, transparent);
-      background-size: 420px 260px;
-      opacity: 0.65;
-    }
-
-    .stars::before {
-      background-image:
-        radial-gradient(2px 2px at 50px 50px, white, transparent),
-        radial-gradient(1.5px 1.5px at 160px 110px, #ffd6a5, transparent),
-        radial-gradient(2px 2px at 250px 160px, white, transparent);
-      background-size: 520px 320px;
-      opacity: 0.28;
-      animation-duration: 16s;
-    }
-
-    .stars::after {
-      background-image:
-        radial-gradient(1.5px 1.5px at 80px 20px, white, transparent),
-        radial-gradient(2px 2px at 180px 100px, #ffd6a5, transparent),
-        radial-gradient(1.5px 1.5px at 320px 180px, white, transparent);
-      background-size: 560px 320px;
-      opacity: 0.18;
-      animation-duration: 20s;
-    }
-
-    @keyframes twinkle {
-      0% { transform: translateY(0); opacity: 0.7; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-12px); opacity: 0.7; }
-    }
-
-    .page {
-      position: relative;
-      z-index: 1;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 20px;
-      background: #ff6a00;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .logo {
-      height: 60px;
-      width: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-size: 1.7rem;
-      font-weight: bold;
-      line-height: 1;
-    }
-
-    .brand-sub {
-      font-size: 0.8rem;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .nav-btn,
-    .hero-btn,
-    .chip,
-    .add-btn,
-    .checkout-btn,
-    .clear-btn,
-    .modal-btn,
-    .qty-btn,
-    .remove-btn,
-    .promo-btn,
-    .mini-btn,
-    .fav-btn {
-      border: none;
-      cursor: pointer;
-      border-radius: 12px;
-      font-weight: bold;
-      transition: 0.2s ease;
-      font-family: inherit;
-    }
-
-    .nav-btn {
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.18);
-      color: white;
-    }
-
-    .nav-btn:hover,
-    .hero-btn:hover,
-    .add-btn:hover,
-    .checkout-btn:hover,
-    .clear-btn:hover,
-    .modal-btn:hover,
-    .qty-btn:hover,
-    .remove-btn:hover,
-    .promo-btn:hover,
-    .mini-btn:hover,
-    .fav-btn:hover,
-    .chip:hover {
-      transform: translateY(-2px);
-    }
-
-    .top-banner {
-      max-width: 1400px;
-      margin: 18px auto 0;
-      padding: 0 20px;
-    }
-
-    .banner-card {
-      background: linear-gradient(135deg, rgba(255,106,0,0.95), rgba(255,159,28,0.92));
-      border-radius: 26px;
-      padding: 26px;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.28);
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .banner-card h1 {
-      margin: 0 0 10px;
-      font-size: 3rem;
-      color: white;
-    }
-
-    .banner-card p {
-      margin: 0 0 18px;
-      color: #fff4eb;
-      font-size: 1.05rem;
-      line-height: 1.5;
-      max-width: 700px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .hero-btn {
-      padding: 12px 18px;
-    }
-
-    .hero-btn.primary {
-      background: #190824;
-      color: white;
-    }
-
-    .hero-btn.secondary {
-      background: rgba(255,255,255,0.22);
-      color: white;
-    }
-
-    .deal-box {
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 22px;
-      padding: 20px;
-      backdrop-filter: blur(8px);
-    }
-
-    .deal-box h3 {
-      margin: 0 0 10px;
-      font-size: 1.3rem;
-    }
-
-    .deal-list {
-      margin: 0;
-      padding-left: 18px;
-      line-height: 1.8;
-      color: #fff4eb;
-    }
-
-    .quick-stats {
-      max-width: 1400px;
-      margin: 18px auto 0;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 26px rgba(0,0,0,0.25);
-    }
-
-    .stat-card h3 {
-      margin: 0 0 8px;
-      color: #ffbf75;
-    }
-
-    .stat-card p {
-      margin: 0;
-      color: var(--soft);
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-
-    .toolbar-wrap {
-      max-width: 1400px;
-      margin: 18px auto 0;
-      padding: 0 20px;
-    }
-
-    .toolbar {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 14px;
-      align-items: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .search-box,
-    .select-box,
-    .promo-input,
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      padding: 12px 14px;
-      border-radius: 12px;
-      outline: none;
-      font-family: inherit;
-    }
-
-    .field textarea {
-      resize: vertical;
-      min-height: 90px;
-    }
-
-    .search-box::placeholder,
-    .promo-input::placeholder,
-    .field input::placeholder,
-    .field textarea::placeholder {
-      color: #e8cbb3;
-    }
-
-    .select-holder {
-      min-width: 190px;
-    }
-
-    .mini-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .mini-btn {
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.12);
-      color: white;
-    }
-
-    .section-title {
-      max-width: 1400px;
-      margin: 18px auto 0;
-      padding: 0 20px 8px;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #fff2e3;
-    }
-
-    .chips {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 10px 14px;
-    }
-
-    .chip.active {
-      background: linear-gradient(90deg, var(--orange), var(--orange2));
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 390px;
-      gap: 24px;
-      max-width: 1400px;
-      margin: 0 auto 60px;
-      padding: 0 20px;
-      align-items: start;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .menu-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(8px);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .menu-card img {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .menu-content {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .menu-top {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .menu-top h3 {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
-    }
-
-    .badge {
-      background: linear-gradient(90deg, #ff7b00, #ffb703);
-      color: white;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .desc {
-      color: var(--soft);
-      line-height: 1.45;
-      min-height: 46px;
-      font-size: 0.93rem;
-    }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: #ffd4a7;
-      font-size: 0.88rem;
-      margin: 12px 0;
-    }
-
-    .card-bottom {
-      margin-top: auto;
-    }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .price {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #ffbf75;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .add-btn {
-      padding: 11px 14px;
-      background: linear-gradient(90deg, var(--orange), var(--orange2));
-      color: white;
-    }
-
-    .fav-btn {
-      width: 42px;
-      background: rgba(255,255,255,0.1);
-      color: white;
-    }
-
-    .fav-btn.active {
-      background: rgba(250, 204, 21, 0.2);
-      color: var(--yellow);
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 92px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .cart,
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.26);
-      backdrop-filter: blur(10px);
-    }
-
-    .cart h2,
-    .panel h3 {
-      margin-top: 0;
-      color: #ffbf75;
-    }
+    * { box-sizing: border-box; }
 
-    .signin-box {
-      background: rgba(255,255,255,0.07);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 16px;
+    :root{
+      --yellow:#fffc00;
+      --black:#111111;
+      --white:#ffffff;
+      --gray:#f3f4f6;
+      --line:#d1d5db;
+      --blue:#60a5fa;
+      --purple:#a855f7;
+      --green:#22c55e;
+      --red:#ef4444;
     }
 
-    .signin-box p {
-      margin: 0 0 12px;
-      color: var(--soft);
-      font-size: 0.95rem;
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--yellow);
+      color:var(--black);
     }
 
-    .signin-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .signin-buttons button {
-      flex: 1;
-    }
-
-    #cartItems,
-    #favoriteItems {
-      list-style: none;
-      padding: 0;
-      margin: 15px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 290px;
-      overflow: auto;
-    }
-
-    #cartItems li,
-    #favoriteItems li {
-      background: rgba(255,255,255,0.07);
-      border-radius: 14px;
-      padding: 12px;
-      color: #fff2e8;
-      font-size: 0.94rem;
-    }
+    .hidden{ display:none !important; }
 
-    .cart-item-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-      font-weight: bold;
+    .app{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
 
-    .cart-item-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
+    .topbar{
+      background:var(--black);
+      color:var(--white);
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      position:sticky;
+      top:0;
+      z-index:20;
     }
 
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .brand{
+      font-size:24px;
+      font-weight:800;
     }
 
-    .qty-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.14);
-      color: white;
+    .top-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
     }
 
-    .qty-number {
-      min-width: 20px;
-      text-align: center;
+    button{
+      border:none;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:700;
+      cursor:pointer;
     }
 
-    .remove-btn {
-      background: rgba(239, 68, 68, 0.18);
-      color: #ffd3d3;
-      padding: 8px 12px;
-      border: 1px solid rgba(239, 68, 68, 0.25);
+    .btn-dark{ background:var(--black); color:var(--white); }
+    .btn-light{ background:var(--white); color:var(--black); }
+    .btn-blue{ background:var(--blue); color:var(--black); }
+    .btn-purple{ background:var(--purple); color:var(--white); }
+    .btn-green{ background:var(--green); color:var(--white); }
+    .btn-red{ background:var(--red); color:var(--white); }
+
+    .screen{
+      padding:16px;
+      max-width:1200px;
+      width:100%;
+      margin:0 auto;
     }
 
-    .empty {
-      text-align: center;
-      color: var(--soft);
+    .auth-wrap{
+      max-width:420px;
+      margin:40px auto;
+      background:var(--white);
+      border:3px solid var(--black);
+      border-radius:24px;
+      padding:20px;
+      box-shadow:0 10px 0 var(--black);
     }
 
-    .summary {
-      background: rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 14px;
+    .auth-wrap h1{
+      margin-top:0;
+      font-size:32px;
     }
 
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-      color: #ffe7d2;
+    .field{
+      margin-bottom:12px;
     }
 
-    .summary-total {
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: #fff7ef;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 10px;
-      margin-top: 10px;
+    .field label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
     }
 
-    .promo-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
+    .field input, .field textarea{
+      width:100%;
+      padding:12px;
+      border:2px solid var(--black);
+      border-radius:12px;
+      font-size:16px;
     }
 
-    .promo-btn {
-      padding: 12px 14px;
-      background: linear-gradient(90deg, var(--orange), var(--orange2));
-      color: white;
-      white-space: nowrap;
+    .auth-switch{
+      margin-top:12px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:underline;
     }
 
-    .cart-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .main-grid{
+      display:grid;
+      grid-template-columns:280px 1fr 280px;
+      gap:16px;
+      padding:16px;
+      max-width:1400px;
+      width:100%;
+      margin:0 auto;
     }
 
-    .checkout-btn,
-    .clear-btn {
-      flex: 1;
-      min-width: 120px;
-      padding: 12px;
+    .panel{
+      background:var(--white);
+      border:3px solid var(--black);
+      border-radius:22px;
+      padding:14px;
+      min-height:200px;
     }
 
-    .checkout-btn {
-      background: linear-gradient(90deg, var(--orange), var(--orange2));
-      color: white;
+    .panel h3{
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:22px;
     }
 
-    .clear-btn {
-      background: rgba(255,255,255,0.1);
-      color: white;
+    .profile-card{
+      text-align:center;
     }
 
-    .cards-accepted {
-      margin-top: 14px;
-      text-align: center;
-      color: var(--soft);
-      font-size: 0.92rem;
+    .avatar{
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      background:var(--black);
+      color:var(--yellow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:30px;
+      font-weight:800;
+      margin:0 auto 10px;
     }
 
-    .cards-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      margin:4px 4px 0 0;
+      background:var(--gray);
+      border:2px solid var(--black);
     }
 
-    .pay-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-    }
+    .tag.vip{ background:var(--yellow); }
+    .tag.nitro{ background:var(--purple); color:white; }
 
-    .panel p {
-      color: var(--soft);
-      line-height: 1.5;
-      margin-top: 0;
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .small-list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--soft);
-      line-height: 1.8;
+    .friend-item, .chat-item, .shop-item{
+      border:2px solid var(--black);
+      border-radius:16px;
+      padding:10px;
+      background:var(--gray);
     }
 
-    .footer {
-      text-align: center;
-      padding: 18px 20px 40px;
-      color: var(--soft);
+    .friend-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
     }
 
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.62);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 18px;
+    .chat-item{
+      cursor:pointer;
+      background:white;
     }
 
-    .modal-backdrop.show {
-      display: flex;
+    .chat-item.active{
+      background:var(--yellow);
     }
 
-    .modal {
-      width: 100%;
-      max-width: 520px;
-      background: #160b22;
-      border: 1px solid rgba(255, 140, 0, 0.22);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 18px 34px rgba(0,0,0,0.5);
+    .chat-name{
+      font-weight:800;
     }
 
-    .modal h2 {
-      margin-top: 0;
-      color: #ffbf75;
+    .chat-preview{
+      font-size:13px;
+      color:#444;
+      margin-top:4px;
     }
 
-    .modal p {
-      color: var(--soft);
-      line-height: 1.5;
+    .chat-area{
+      display:flex;
+      flex-direction:column;
+      height:70vh;
     }
 
-    .field {
-      margin-bottom: 12px;
+    .chat-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      border-bottom:2px solid var(--line);
+      padding-bottom:10px;
+      margin-bottom:10px;
     }
 
-    .field label {
-      display: block;
-      margin-bottom: 6px;
-      color: #ffe5d0;
-      font-size: 0.92rem;
+    .messages{
+      flex:1;
+      overflow:auto;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding-right:4px;
     }
 
-    .two-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .message{
+      max-width:75%;
+      padding:10px 12px;
+      border-radius:16px;
+      border:2px solid var(--black);
+      word-wrap:break-word;
     }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
+    .message.me{
+      align-self:flex-end;
+      background:var(--yellow);
     }
 
-    .modal-btn {
-      padding: 12px 14px;
+    .message.them{
+      align-self:flex-start;
+      background:var(--gray);
     }
 
-    .modal-btn.primary {
-      background: linear-gradient(90deg, var(--orange), var(--orange2));
-      color: white;
-      flex: 1;
+    .message-meta{
+      font-size:11px;
+      opacity:0.7;
+      margin-top:4px;
     }
 
-    .modal-btn.secondary {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      flex: 1;
+    .composer{
+      display:flex;
+      gap:8px;
+      margin-top:12px;
     }
 
-    .user-pill {
-      display: inline-block;
-      background: rgba(255,255,255,0.14);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
+    .composer input{
+      flex:1;
+      padding:12px;
+      border:2px solid var(--black);
+      border-radius:14px;
+      font-size:16px;
     }
 
-    .notice {
-      background: rgba(34, 197, 94, 0.18);
-      color: #d9ffe7;
-      border: 1px solid rgba(34, 197, 94, 0.26);
-      padding: 12px 14px;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      display: none;
+    .notice{
+      margin:12px 0;
+      background:white;
+      border:2px solid var(--black);
+      border-radius:14px;
+      padding:10px 12px;
+      font-weight:700;
     }
 
-    .notice.show {
-      display: block;
+    .small{
+      font-size:13px;
+      color:#333;
     }
 
-    @media (max-width: 1300px) {
-      .menu-grid {
-        grid-template-columns: repeat(3, minmax(220px, 1fr));
+    @media (max-width: 1000px){
+      .main-grid{
+        grid-template-columns:1fr;
       }
-    }
-
-    @media (max-width: 1150px) {
-      .banner-card,
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .quick-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .menu-grid {
-        grid-template-columns: repeat(2, minmax(220px, 1fr));
-      }
-
-      .sidebar {
-        position: static;
-      }
-    }
-
-    @media (max-width: 700px) {
-      header {
-        padding: 12px 14px;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .brand-title {
-        font-size: 1.35rem;
-      }
-
-      .logo {
-        height: 48px;
-      }
-
-      .banner-card h1 {
-        font-size: 2.15rem;
-      }
-
-      .quick-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .two-cols,
-      .signin-buttons,
-      .hero-buttons,
-      .cart-buttons,
-      .modal-actions,
-      .promo-row {
-        grid-template-columns: 1fr;
-        flex-direction: column;
+      .chat-area{
+        height:55vh;
       }
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
-
-  <div class="page">
-    <header>
-      <div class="brand">
-        <img src="logo.png" class="logo" alt="CrustyComet Pizza logo">
-        <div class="brand-text">
-          <div class="brand-title">CrustyComet Pizza</div>
-          <div class="brand-sub">Pizza • Burgers • Wings • Drinks • Desserts</div>
-        </div>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">👻 Vdeio Chat</div>
+      <div class="top-actions">
+        <button class="btn-light" onclick="showScreen('authScreen')">Auth</button>
+        <button class="btn-light hidden" id="logoutBtn" onclick="logout()">Log Out</button>
       </div>
-
-      <div class="nav-actions">
-        <button class="nav-btn" onclick="scrollToMenu()">Menu</button>
-        <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
-        <button class="nav-btn" onclick="openModal('signupModal')">Create Account</button>
-      </div>
-    </header>
-
-    <section class="top-banner">
-      <div class="banner-card">
-        <div>
-          <h1>Ultimate Food Delivery 🚀</h1>
-          <p>
-            Welcome to CrustyComet Pizza — now upgraded with a giant menu, favorites,
-            promos, order options, a bigger cart, more food, more drinks, more desserts,
-            and a full app-style layout.
-          </p>
-          <div class="hero-buttons">
-            <button class="hero-btn primary" onclick="scrollToMenu()">Order Now</button>
-            <button class="hero-btn secondary" onclick="openModal('signinModal')">Sign In</button>
-          </div>
-        </div>
-
-        <div class="deal-box">
-          <h3>Today’s Specials</h3>
-          <ul class="deal-list">
-            <li>2 Large Pizzas + Fries + 2 Drinks</li>
-            <li>Free dessert on orders over $40</li>
-            <li>Try promo code <b>COMET10</b> for 10% off</li>
-            <li>New spicy wings and shakes added</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="quick-stats">
-      <div class="stat-card">
-        <h3>⚡ Fast Delivery</h3>
-        <p>Hot food delivered quickly with live-feel order tools.</p>
-      </div>
-      <div class="stat-card">
-        <h3>🍕 Huge Menu</h3>
-        <p>Pizza, burgers, fries, wings, sides, drinks, desserts, and more.</p>
-      </div>
-      <div class="stat-card">
-        <h3>⭐ Favorites</h3>
-        <p>Heart items you love and keep them in a favorites list.</p>
-      </div>
-      <div class="stat-card">
-        <h3>📱 App Feel</h3>
-        <p>Search, filters, cart controls, promo codes, checkout, and mobile layout.</p>
-      </div>
-    </section>
-
-    <section class="toolbar-wrap">
-      <div class="toolbar">
-        <input id="searchInput" class="search-box" type="text" placeholder="Search pizza, fries, soda, dessert..." oninput="searchMenu()">
-
-        <div class="select-holder">
-          <select id="orderType" class="select-box" onchange="updateCart()">
-            <option value="delivery">Delivery</option>
-            <option value="pickup">Pickup</option>
-            <option value="express">Express Delivery</option>
-          </select>
-        </div>
-
-        <div class="mini-group">
-          <button class="mini-btn" onclick="scrollToSection('featuredSection')">Featured</button>
-          <button class="mini-btn" onclick="scrollToSection('menu')">All Food</button>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-title" id="featuredSection">Featured</div>
-    <div class="chips">
-      <button class="chip active" onclick="filterMenu('all', this)">All</button>
-      <button class="chip" onclick="filterMenu('pizza', this)">Pizza</button>
-      <button class="chip" onclick="filterMenu('fries', this)">Fries</button>
-      <button class="chip" onclick="filterMenu('burgers', this)">Burgers</button>
-      <button class="chip" onclick="filterMenu('wings', this)">Wings</button>
-      <button class="chip" onclick="filterMenu('sides', this)">Sides</button>
-      <button class="chip" onclick="filterMenu('drinks', this)">Drinks</button>
-      <button class="chip" onclick="filterMenu('desserts', this)">Desserts</button>
     </div>
 
-    <div class="layout">
-      <section>
-        <div class="menu-grid" id="menuGrid">
-          <div class="menu-card" data-category="pizza" data-name="Cheese Pizza">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Cheese Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Cheese Pizza</h3>
-                <span class="badge">Popular</span>
-              </div>
-              <div class="desc">Classic cheesy pizza with extra melt and golden crust.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>20–30 min</span></div>
-              <div class="card-bottom">
-                <div class="price-row">
-                  <div class="price">$8.99</div>
-                  <div class="card-actions">
-                    <button class="fav-btn" onclick="toggleFavorite('Cheese Pizza')">♡</button>
-                    <button class="add-btn" onclick="addToCart('Cheese Pizza', 8.99)">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div id="authScreen" class="screen">
+      <div class="auth-wrap">
+        <h1 id="authTitle">Sign Up</h1>
 
-          <div class="menu-card" data-category="pizza" data-name="Pepperoni">
-            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=900&q=80" alt="Pepperoni Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Pepperoni</h3>
-                <span class="badge">Hot</span>
-              </div>
-              <div class="desc">Spicy pepperoni, bubbling cheese, and comet-red sauce.</div>
-              <div class="meta"><span>⭐ 4.9</span><span>20–30 min</span></div>
-              <div class="price-row">
-                <div class="price">$10.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Pepperoni')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Pepperoni', 10.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="notice" id="authNotice">Create an account to start chatting.</div>
 
-          <div class="menu-card" data-category="pizza" data-name="Supreme">
-            <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=900&q=80" alt="Supreme Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Supreme</h3>
-                <span class="badge">Loaded</span>
-              </div>
-              <div class="desc">Pepperoni, peppers, onions, olives, and cosmic flavor.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>25–35 min</span></div>
-              <div class="price-row">
-                <div class="price">$12.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Supreme')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Supreme', 12.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="pizza" data-name="BBQ Chicken Pizza">
-            <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=900&q=80" alt="BBQ Chicken Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>BBQ Chicken</h3>
-                <span class="badge">Smoky</span>
-              </div>
-              <div class="desc">Sweet smoky sauce with chicken and red onions.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>20–30 min</span></div>
-              <div class="price-row">
-                <div class="price">$11.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('BBQ Chicken Pizza')">♡</button>
-                  <button class="add-btn" onclick="addToCart('BBQ Chicken Pizza', 11.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="pizza" data-name="Veggie Pizza">
-            <img src="https://images.unsplash.com/photo-1511689660979-10d2b1aada49?auto=format&fit=crop&w=900&q=80" alt="Veggie Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Veggie Pizza</h3>
-                <span class="badge">Fresh</span>
-              </div>
-              <div class="desc">Peppers, onions, mushrooms, olives, and mozzarella.</div>
-              <div class="meta"><span>⭐ 4.6</span><span>20–30 min</span></div>
-              <div class="price-row">
-                <div class="price">$10.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Veggie Pizza')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Veggie Pizza', 10.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="pizza" data-name="Meat Lovers Pizza">
-            <img src="https://images.unsplash.com/photo-1548365328-9f547fb0953b?auto=format&fit=crop&w=900&q=80" alt="Meat Lovers Pizza">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Meat Lovers</h3>
-                <span class="badge">Heavy</span>
-              </div>
-              <div class="desc">Pepperoni, bacon, sausage, beef, and extra cheese.</div>
-              <div class="meta"><span>⭐ 4.9</span><span>25–35 min</span></div>
-              <div class="price-row">
-                <div class="price">$13.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Meat Lovers Pizza')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Meat Lovers Pizza', 13.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="fries" data-name="Classic Fries">
-            <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=900&q=80" alt="Classic Fries">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Classic Fries</h3>
-                <span class="badge">Crispy</span>
-              </div>
-              <div class="desc">Golden fries with crunchy edges and soft center.</div>
-              <div class="meta"><span>⭐ 4.6</span><span>10–15 min</span></div>
-              <div class="price-row">
-                <div class="price">$3.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Classic Fries')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Classic Fries', 3.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="fries" data-name="Loaded Fries">
-            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=900&q=80" alt="Loaded Fries">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Loaded Fries</h3>
-                <span class="badge">Cheesy</span>
-              </div>
-              <div class="desc">Fries topped with cheese sauce and crispy bacon bits.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$5.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Loaded Fries')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Loaded Fries', 5.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="fries" data-name="Curly Fries">
-            <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=900&q=80" alt="Curly Fries">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Curly Fries</h3>
-                <span class="badge">Seasoned</span>
-              </div>
-              <div class="desc">Spiced curly fries with extra crunch.</div>
-              <div class="meta"><span>⭐ 4.5</span><span>10–15 min</span></div>
-              <div class="price-row">
-                <div class="price">$4.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Curly Fries')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Curly Fries', 4.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="burgers" data-name="Classic Burger">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Classic Burger">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Classic Burger</h3>
-                <span class="badge">Grilled</span>
-              </div>
-              <div class="desc">Beef patty, lettuce, tomato, onion, and house sauce.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$8.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Classic Burger')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Classic Burger', 8.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="burgers" data-name="Double Smash Burger">
-            <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=900&q=80" alt="Double Smash Burger">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Double Smash</h3>
-                <span class="badge">Big</span>
-              </div>
-              <div class="desc">Two patties, melted cheese, pickles, onions, and sauce.</div>
-              <div class="meta"><span>⭐ 4.9</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$10.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Double Smash Burger')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Double Smash Burger', 10.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="burgers" data-name="Chicken Burger">
-            <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=900&q=80" alt="Chicken Burger">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Chicken Burger</h3>
-                <span class="badge">Crispy</span>
-              </div>
-              <div class="desc">Crispy chicken, pickles, lettuce, and spicy mayo.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$9.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Chicken Burger')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Chicken Burger', 9.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="wings" data-name="Buffalo Wings">
-            <img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=900&q=80" alt="Buffalo Wings">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Buffalo Wings</h3>
-                <span class="badge">Spicy</span>
-              </div>
-              <div class="desc">Hot buffalo wings with a buttery kick.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$8.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Buffalo Wings')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Buffalo Wings', 8.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="wings" data-name="BBQ Wings">
-            <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=900&q=80" alt="BBQ Wings">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>BBQ Wings</h3>
-                <span class="badge">Sweet</span>
-              </div>
-              <div class="desc">Sticky sweet barbecue wings with smoky flavor.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$8.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('BBQ Wings')">♡</button>
-                  <button class="add-btn" onclick="addToCart('BBQ Wings', 8.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="wings" data-name="Garlic Parmesan Wings">
-            <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=80" alt="Garlic Parmesan Wings">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Garlic Parm Wings</h3>
-                <span class="badge">Savory</span>
-              </div>
-              <div class="desc">Buttery garlic wings finished with parmesan.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>15–20 min</span></div>
-              <div class="price-row">
-                <div class="price">$9.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Garlic Parmesan Wings')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Garlic Parmesan Wings', 9.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="sides" data-name="Mozzarella Sticks">
-            <img src="https://images.unsplash.com/photo-1548340748-6d2b7d7da280?auto=format&fit=crop&w=900&q=80" alt="Mozzarella Sticks">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Mozzarella Sticks</h3>
-                <span class="badge">Cheesy</span>
-              </div>
-              <div class="desc">Crispy fried mozzarella with warm marinara.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>10–15 min</span></div>
-              <div class="price-row">
-                <div class="price">$6.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Mozzarella Sticks')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Mozzarella Sticks', 6.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="sides" data-name="Onion Rings">
-            <img src="https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=900&q=80" alt="Onion Rings">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Onion Rings</h3>
-                <span class="badge">Crunchy</span>
-              </div>
-              <div class="desc">Golden battered onion rings with dipping sauce.</div>
-              <div class="meta"><span>⭐ 4.4</span><span>10–15 min</span></div>
-              <div class="price-row">
-                <div class="price">$5.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Onion Rings')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Onion Rings', 5.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="sides" data-name="Garlic Bread">
-            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Garlic Bread">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Garlic Bread</h3>
-                <span class="badge">Warm</span>
-              </div>
-              <div class="desc">Toasted bread with garlic butter and herbs.</div>
-              <div class="meta"><span>⭐ 4.5</span><span>8–12 min</span></div>
-              <div class="price-row">
-                <div class="price">$4.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Garlic Bread')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Garlic Bread', 4.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="drinks" data-name="Galaxy Cola">
-            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80" alt="Galaxy Cola">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Galaxy Cola</h3>
-                <span class="badge">Cold</span>
-              </div>
-              <div class="desc">Ice-cold fizzy cola to go with your order.</div>
-              <div class="meta"><span>⭐ 4.5</span><span>Ready now</span></div>
-              <div class="price-row">
-                <div class="price">$2.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Galaxy Cola')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Galaxy Cola', 2.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="drinks" data-name="Orange Soda">
-            <img src="https://images.unsplash.com/photo-1622484212850-eb596d769edc?auto=format&fit=crop&w=900&q=80" alt="Orange Soda">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Orange Soda</h3>
-                <span class="badge">Bright</span>
-              </div>
-              <div class="desc">Sweet citrus soda with lots of fizz.</div>
-              <div class="meta"><span>⭐ 4.3</span><span>Ready now</span></div>
-              <div class="price-row">
-                <div class="price">$2.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Orange Soda')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Orange Soda', 2.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="drinks" data-name="Comet Shake">
-            <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=900&q=80" alt="Comet Shake">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Comet Shake</h3>
-                <span class="badge">Sweet</span>
-              </div>
-              <div class="desc">Creamy vanilla shake with orange drizzle.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>5–10 min</span></div>
-              <div class="price-row">
-                <div class="price">$4.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Comet Shake')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Comet Shake', 4.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="drinks" data-name="Iced Coffee">
-            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80" alt="Iced Coffee">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Iced Coffee</h3>
-                <span class="badge">Chill</span>
-              </div>
-              <div class="desc">Cold brewed coffee with ice and milk.</div>
-              <div class="meta"><span>⭐ 4.6</span><span>Ready now</span></div>
-              <div class="price-row">
-                <div class="price">$3.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Iced Coffee')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Iced Coffee', 3.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="desserts" data-name="Brownie Blast">
-            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80" alt="Brownie Blast">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Brownie Blast</h3>
-                <span class="badge">Rich</span>
-              </div>
-              <div class="desc">Warm chocolate brownie with gooey center.</div>
-              <div class="meta"><span>⭐ 4.9</span><span>10 min</span></div>
-              <div class="price-row">
-                <div class="price">$4.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Brownie Blast')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Brownie Blast', 4.49)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="desserts" data-name="Rocket Sundae">
-            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80" alt="Rocket Sundae">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Rocket Sundae</h3>
-                <span class="badge">Frozen</span>
-              </div>
-              <div class="desc">Vanilla ice cream with chocolate syrup and sprinkles.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>Ready now</span></div>
-              <div class="price-row">
-                <div class="price">$3.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Rocket Sundae')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Rocket Sundae', 3.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="desserts" data-name="Churros">
-            <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=900&q=80" alt="Churros">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Churros</h3>
-                <span class="badge">Cinnamon</span>
-              </div>
-              <div class="desc">Warm churros rolled in cinnamon sugar.</div>
-              <div class="meta"><span>⭐ 4.7</span><span>10–15 min</span></div>
-              <div class="price-row">
-                <div class="price">$4.99</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Churros')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Churros', 4.99)">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="desserts" data-name="Chocolate Cake">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80" alt="Chocolate Cake">
-            <div class="menu-content">
-              <div class="menu-top">
-                <h3>Chocolate Cake</h3>
-                <span class="badge">Slice</span>
-              </div>
-              <div class="desc">Moist dark chocolate cake with frosting.</div>
-              <div class="meta"><span>⭐ 4.8</span><span>Ready now</span></div>
-              <div class="price-row">
-                <div class="price">$5.49</div>
-                <div class="card-actions">
-                  <button class="fav-btn" onclick="toggleFavorite('Chocolate Cake')">♡</button>
-                  <button class="add-btn" onclick="addToCart('Chocolate Cake', 5.49)">Add</button>
-                </div>
-              </div>
-            </div>
+        <div id="signupFields">
+          <div class="field">
+            <label>Display Name</label>
+            <input id="signupName" placeholder="Your username">
           </div>
         </div>
-      </section>
 
-      <aside class="sidebar">
-        <div class="cart">
-          <h2>🛒 Your Cart</h2>
+        <div class="field">
+          <label>Email</label>
+          <input id="authEmail" type="email" placeholder="you@example.com">
+        </div>
 
-          <div id="notice" class="notice"></div>
+        <div class="field">
+          <label>Password</label>
+          <input id="authPassword" type="password" placeholder="Password">
+        </div>
 
-          <div class="signin-box" id="signinBox">
-            <p>Sign in to save your details and check out faster.</p>
-            <div class="signin-buttons">
-              <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
-              <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
-            </div>
+        <button class="btn-dark" style="width:100%;" id="authMainBtn" onclick="submitAuth()">Create Account</button>
+        <div class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Already have an account? Log in</div>
+      </div>
+    </div>
+
+    <div id="appScreen" class="hidden">
+      <div class="main-grid">
+        <div class="panel">
+          <div class="profile-card">
+            <div class="avatar" id="profileAvatar">U</div>
+            <h3 id="profileName">User</h3>
+            <div id="profileTags"></div>
           </div>
 
-          <ul id="cartItems">
-            <li class="empty">Your cart is empty.</li>
-          </ul>
+          <div class="notice" id="welcomeBox">Welcome!</div>
 
-          <div class="promo-row">
-            <input id="promoInput" class="promo-input" type="text" placeholder="Promo code (try COMET10)">
-            <button class="promo-btn" onclick="applyPromo()">Apply</button>
+          <h3>Add Friend</h3>
+          <div class="field">
+            <input id="friendNameInput" placeholder="Friend name">
           </div>
+          <button class="btn-green" style="width:100%;" onclick="addFriend()">Add Friend</button>
 
-          <div class="summary">
-            <div class="summary-row">
-              <span>Subtotal</span>
-              <span>$<span id="subtotal">0.00</span></span>
-            </div>
-            <div class="summary-row">
-              <span>Delivery</span>
-              <span>$<span id="delivery">0.00</span></span>
-            </div>
-            <div class="summary-row">
-              <span>Tax</span>
-              <span>$<span id="tax">0.00</span></span>
-            </div>
-            <div class="summary-row">
-              <span>Discount</span>
-              <span>-$<span id="discount">0.00</span></span>
-            </div>
-            <div class="summary-row">
-              <span>ETA</span>
-              <span id="eta">25–35 min</span>
-            </div>
-            <div class="summary-row summary-total">
-              <span>Total</span>
-              <span>$<span id="grandTotal">0.00</span></span>
-            </div>
-          </div>
+          <h3 style="margin-top:16px;">Friends</h3>
+          <div id="friendsList" class="list"></div>
+        </div>
 
-          <div class="cart-buttons">
-            <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
-            <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
-          </div>
+        <div class="panel">
+          <div class="chat-area">
+            <div class="chat-header">
+              <div>
+                <div class="chat-name" id="activeChatName">No chat selected</div>
+                <div class="small" id="activeChatInfo">Pick a friend to start chatting</div>
+              </div>
+              <button class="btn-blue" onclick="sendFakeReply()" id="fakeReplyBtn">Fake Reply</button>
+            </div>
 
-          <div class="cards-accepted">
-            Cards accepted
-            <div class="cards-row">
-              <div class="pay-card">Visa</div>
-              <div class="pay-card">Mastercard</div>
-              <div class="pay-card">Amex</div>
+            <div id="messagesBox" class="messages">
+              <div class="notice">No messages yet.</div>
+            </div>
+
+            <div class="composer">
+              <input id="messageInput" placeholder="Type a message...">
+              <button class="btn-dark" onclick="sendMessage()">Send</button>
             </div>
           </div>
         </div>
 
         <div class="panel">
-          <h3>⭐ Favorites</h3>
-          <p>Your saved food will show here.</p>
-          <ul id="favoriteItems">
-            <li class="empty">No favorites yet.</li>
-          </ul>
+          <h3>Shop</h3>
+          <div class="shop-item">
+            <div class="chat-name">VIP</div>
+            <div class="small">Special badge + cool status</div>
+            <div style="margin-top:8px;">
+              <button class="btn-green" onclick="buyVIP()">Buy VIP</button>
+            </div>
+          </div>
+
+          <div class="shop-item" style="margin-top:10px;">
+            <div class="chat-name">Nitro</div>
+            <div class="small">Purple badge + premium flex vibes</div>
+            <div style="margin-top:8px;">
+              <button class="btn-purple" onclick="buyNitro()">Buy Nitro</button>
+            </div>
+          </div>
+
+          <h3 style="margin-top:16px;">Chats</h3>
+          <div id="chatList" class="list"></div>
         </div>
-
-        <div class="panel">
-          <h3>🔥 Why Order Here</h3>
-          <ul class="small-list">
-            <li>Huge menu with lots of options</li>
-            <li>Easy cart and quantity controls</li>
-            <li>Promo code support</li>
-            <li>Pickup, delivery, and express modes</li>
-          </ul>
-        </div>
-      </aside>
-    </div>
-
-    <div class="footer">
-      🌌 CrustyComet Pizza — upgraded to the maximum
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="signinModal">
-    <div class="modal">
-      <h2>Sign In</h2>
-      <p>Sign in to your account.</p>
-      <div class="field">
-        <label>Email</label>
-        <input id="signinEmail" type="email" placeholder="you@example.com">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" placeholder="Enter password">
-      </div>
-      <div class="modal-actions">
-        <button class="modal-btn primary" onclick="signIn()">Sign In</button>
-        <button class="modal-btn secondary" onclick="closeModal('signinModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="signupModal">
-    <div class="modal">
-      <h2>Create Account</h2>
-      <p>Create your account to get started.</p>
-      <div class="field">
-        <label>Name</label>
-        <input id="signupName" type="text" placeholder="Your name">
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" placeholder="you@example.com">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" placeholder="Create password">
-      </div>
-      <div class="modal-actions">
-        <button class="modal-btn primary" onclick="createAccount()">Create Account</button>
-        <button class="modal-btn secondary" onclick="closeModal('signupModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="checkoutModal">
-    <div class="modal">
-      <h2>Checkout</h2>
-      <p>Enter your details to place your order.</p>
-
-      <div class="field">
-        <label>Full Name</label>
-        <input id="checkoutName" type="text" placeholder="Your full name">
-      </div>
-
-      <div class="field">
-        <label>Phone Number</label>
-        <input type="text" placeholder="(555) 123-4567">
-      </div>
-
-      <div class="field">
-        <label>Address</label>
-        <input type="text" placeholder="123 Space Street">
-      </div>
-
-      <div class="field">
-        <label>Notes for your order</label>
-        <textarea placeholder="Extra ketchup, no onions, ring the doorbell..."></textarea>
-      </div>
-
-      <div class="field">
-        <label>Card Number</label>
-        <input type="text" placeholder="1234 5678 9012 3456">
-      </div>
-
-      <div class="two-cols">
-        <div class="field">
-          <label>Expiry</label>
-          <input type="text" placeholder="MM/YY">
-        </div>
-        <div class="field">
-          <label>CVV</label>
-          <input type="text" placeholder="123">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Delivery Method</label>
-        <select id="checkoutOrderType">
-          <option>Delivery</option>
-          <option>Pickup</option>
-          <option>Express Delivery</option>
-        </select>
-      </div>
-
-      <div class="modal-actions">
-        <button class="modal-btn primary" onclick="placeOrder()">Place Order</button>
-        <button class="modal-btn secondary" onclick="closeModal('checkoutModal')">Cancel</button>
       </div>
     </div>
   </div>
 
   <script>
-    let cart = [];
-    let signedInUser = "";
-    let favorites = [];
-    let activeCategory = "all";
-    let promoPercent = 0;
+    let authMode = "signup";
+    let currentUserEmail = null;
+    let activeChat = null;
 
-    function scrollToMenu() {
-      document.getElementById("featuredSection").scrollIntoView({ behavior: "smooth" });
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("vdeio_users") || "{}");
     }
 
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    function saveUsers(users) {
+      localStorage.setItem("vdeio_users", JSON.stringify(users));
     }
 
-    function openModal(id) {
-      document.getElementById(id).classList.add("show");
+    function getSession() {
+      return localStorage.getItem("vdeio_session");
     }
 
-    function closeModal(id) {
-      document.getElementById(id).classList.remove("show");
+    function saveSession(email) {
+      localStorage.setItem("vdeio_session", email);
     }
 
-    function showNotice(message) {
-      const notice = document.getElementById("notice");
-      notice.textContent = message;
-      notice.classList.add("show");
-      setTimeout(() => {
-        notice.classList.remove("show");
-      }, 2500);
+    function clearSession() {
+      localStorage.removeItem("vdeio_session");
     }
 
-    function signIn() {
-      const email = document.getElementById("signinEmail").value.trim();
-      if (!email) {
-        alert("Enter an email first.");
-        return;
+    function getCurrentUser() {
+      const users = getUsers();
+      if (!currentUserEmail || !users[currentUserEmail]) return null;
+      return users[currentUserEmail];
+    }
+
+    function updateCurrentUser(user) {
+      const users = getUsers();
+      users[currentUserEmail] = user;
+      saveUsers(users);
+    }
+
+    function showScreen(id) {
+      document.getElementById("authScreen").classList.add("hidden");
+      document.getElementById("appScreen").classList.add("hidden");
+      document.getElementById(id).classList.remove("hidden");
+      document.getElementById("logoutBtn").classList.toggle("hidden", id !== "appScreen");
+    }
+
+    function toggleAuthMode() {
+      authMode = authMode === "signup" ? "login" : "signup";
+      const title = document.getElementById("authTitle");
+      const mainBtn = document.getElementById("authMainBtn");
+      const switchBtn = document.getElementById("authSwitch");
+      const signupFields = document.getElementById("signupFields");
+      const notice = document.getElementById("authNotice");
+
+      if (authMode === "signup") {
+        title.textContent = "Sign Up";
+        mainBtn.textContent = "Create Account";
+        switchBtn.textContent = "Already have an account? Log in";
+        signupFields.classList.remove("hidden");
+        notice.textContent = "Create an account to start chatting.";
+      } else {
+        title.textContent = "Log In";
+        mainBtn.textContent = "Log In";
+        switchBtn.textContent = "Need an account? Sign up";
+        signupFields.classList.add("hidden");
+        notice.textContent = "Log in to keep chatting.";
       }
-      signedInUser = email.split("@")[0];
-      updateSignInBox();
-      closeModal("signinModal");
-      showNotice("Signed in as " + signedInUser);
     }
 
-    function createAccount() {
+    function submitAuth() {
+      const users = getUsers();
+      const email = document.getElementById("authEmail").value.trim().toLowerCase();
+      const password = document.getElementById("authPassword").value.trim();
       const name = document.getElementById("signupName").value.trim();
-      signedInUser = name || "Customer";
-      updateSignInBox();
-      closeModal("signupModal");
-      showNotice("Welcome, " + signedInUser + "!");
-    }
 
-    function updateSignInBox() {
-      const box = document.getElementById("signinBox");
-      if (signedInUser) {
-        box.innerHTML = `
-          <div class="user-pill">Signed in as ${signedInUser}</div>
-          <p>Your account is ready for faster checkout.</p>
-          <div class="signin-buttons">
-            <button class="nav-btn" onclick="signOut()">Sign Out</button>
-          </div>
-        `;
-      }
-    }
-
-    function signOut() {
-      signedInUser = "";
-      document.getElementById("signinBox").innerHTML = `
-        <p>Sign in to save your details and check out faster.</p>
-        <div class="signin-buttons">
-          <button class="nav-btn" onclick="openModal('signinModal')">Sign In</button>
-          <button class="nav-btn" onclick="openModal('signupModal')">Join</button>
-        </div>
-      `;
-      showNotice("Signed out");
-    }
-
-    function addToCart(name, price) {
-      const existing = cart.find(item => item.name === name);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ name, price, quantity: 1 });
-      }
-      updateCart();
-      showNotice(name + " added to cart");
-    }
-
-    function changeQuantity(name, amount) {
-      const item = cart.find(i => i.name === name);
-      if (!item) return;
-
-      item.quantity += amount;
-      if (item.quantity <= 0) {
-        cart = cart.filter(i => i.name !== name);
-      }
-      updateCart();
-    }
-
-    function removeItem(name) {
-      cart = cart.filter(item => item.name !== name);
-      updateCart();
-      showNotice(name + " removed");
-    }
-
-    function clearCart() {
-      cart = [];
-      promoPercent = 0;
-      document.getElementById("promoInput").value = "";
-      updateCart();
-      showNotice("Cart cleared");
-    }
-
-    function getSubtotal() {
-      return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    }
-
-    function getDelivery(subtotal) {
-      const orderType = document.getElementById("orderType").value;
-      if (subtotal <= 0) return 0;
-      if (orderType === "pickup") return 0;
-      if (orderType === "express") return 6.99;
-      return 3.99;
-    }
-
-    function getTax(subtotal) {
-      return subtotal * 0.13;
-    }
-
-    function getDiscount(subtotal) {
-      return subtotal * promoPercent;
-    }
-
-    function getEta() {
-      const orderType = document.getElementById("orderType").value;
-      if (orderType === "pickup") return "10–20 min";
-      if (orderType === "express") return "15–25 min";
-      return "25–35 min";
-    }
-
-    function updateCart() {
-      const cartItems = document.getElementById("cartItems");
-      const subtotalText = document.getElementById("subtotal");
-      const deliveryText = document.getElementById("delivery");
-      const taxText = document.getElementById("tax");
-      const discountText = document.getElementById("discount");
-      const grandTotalText = document.getElementById("grandTotal");
-      const etaText = document.getElementById("eta");
-
-      cartItems.innerHTML = "";
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<li class="empty">Your cart is empty.</li>';
-      } else {
-        cart.forEach((item) => {
-          const safeName = item.name.replace(/'/g, "\\'");
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <div class="cart-item-top">
-              <span>${item.name}</span>
-              <span>$${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-            <div class="cart-item-controls">
-              <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQuantity('${safeName}', -1)">-</button>
-                <span class="qty-number">${item.quantity}</span>
-                <button class="qty-btn" onclick="changeQuantity('${safeName}', 1)">+</button>
-              </div>
-              <button class="remove-btn" onclick="removeItem('${safeName}')">Remove</button>
-            </div>
-          `;
-          cartItems.appendChild(li);
-        });
-      }
-
-      const subtotal = getSubtotal();
-      const delivery = getDelivery(subtotal);
-      const tax = getTax(subtotal);
-      const discount = getDiscount(subtotal);
-      const grandTotal = Math.max(subtotal + delivery + tax - discount, 0);
-
-      subtotalText.textContent = subtotal.toFixed(2);
-      deliveryText.textContent = delivery.toFixed(2);
-      taxText.textContent = tax.toFixed(2);
-      discountText.textContent = discount.toFixed(2);
-      grandTotalText.textContent = grandTotal.toFixed(2);
-      etaText.textContent = getEta();
-    }
-
-    function applyPromo() {
-      const value = document.getElementById("promoInput").value.trim().toUpperCase();
-      if (value === "COMET10") {
-        promoPercent = 0.10;
-        updateCart();
-        showNotice("Promo applied: 10% off");
-      } else if (value === "") {
-        promoPercent = 0;
-        updateCart();
-      } else {
-        alert("Invalid promo code.");
-      }
-    }
-
-    function openCheckout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
+      if (!email || !password) {
+        alert("Fill in email and password.");
         return;
       }
-      const orderType = document.getElementById("orderType").value;
-      document.getElementById("checkoutOrderType").value =
-        orderType === "delivery" ? "Delivery" :
-        orderType === "pickup" ? "Pickup" : "Express Delivery";
-      openModal("checkoutModal");
+
+      if (authMode === "signup") {
+        if (!name) {
+          alert("Enter a display name.");
+          return;
+        }
+        if (users[email]) {
+          alert("That account already exists.");
+          return;
+        }
+
+        users[email] = {
+          name,
+          email,
+          password,
+          vip: false,
+          nitro: false,
+          friends: [],
+          chats: {}
+        };
+
+        saveUsers(users);
+        currentUserEmail = email;
+        saveSession(email);
+        loadApp();
+      } else {
+        if (!users[email] || users[email].password !== password) {
+          alert("Wrong email or password.");
+          return;
+        }
+
+        currentUserEmail = email;
+        saveSession(email);
+        loadApp();
+      }
     }
 
-    function placeOrder() {
-      const name = document.getElementById("checkoutName").value.trim();
+    function logout() {
+      clearSession();
+      currentUserEmail = null;
+      activeChat = null;
+      showScreen("authScreen");
+    }
+
+    function addFriend() {
+      const user = getCurrentUser();
+      const name = document.getElementById("friendNameInput").value.trim();
       if (!name) {
-        alert("Enter your name for checkout.");
+        alert("Enter a friend name.");
         return;
       }
-      const total = document.getElementById("grandTotal").textContent;
-      alert("Order placed successfully! 🚀🍕\nThank you, " + name + "!\nTotal: $" + total);
-      clearCart();
-      closeModal("checkoutModal");
+
+      if (user.friends.includes(name)) {
+        alert("That friend is already added.");
+        return;
+      }
+
+      user.friends.push(name);
+      user.chats[name] = user.chats[name] || [];
+      updateCurrentUser(user);
+      document.getElementById("friendNameInput").value = "";
+      renderFriends();
+      renderChats();
     }
 
-    function filterMenu(category, button) {
-      activeCategory = category;
-      document.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
-      button.classList.add("active");
-      applyFilters();
+    function openChat(friendName) {
+      activeChat = friendName;
+      renderChats();
+      renderMessages();
     }
 
-    function searchMenu() {
-      applyFilters();
+    function sendMessage() {
+      const user = getCurrentUser();
+      if (!activeChat) {
+        alert("Pick a friend first.");
+        return;
+      }
+
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      user.chats[activeChat] = user.chats[activeChat] || [];
+      user.chats[activeChat].push({
+        from: "me",
+        text,
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      });
+
+      updateCurrentUser(user);
+      input.value = "";
+      renderMessages();
+      renderChats();
     }
 
-    function applyFilters() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      const cards = document.querySelectorAll(".menu-card");
+    function sendFakeReply() {
+      const user = getCurrentUser();
+      if (!activeChat) {
+        alert("Pick a friend first.");
+        return;
+      }
 
-      cards.forEach(card => {
-        const cardCategory = card.getAttribute("data-category");
-        const cardName = card.getAttribute("data-name").toLowerCase();
-        const showCategory = activeCategory === "all" || activeCategory === cardCategory;
-        const showSearch = cardName.includes(query);
-        card.style.display = (showCategory && showSearch) ? "flex" : "none";
+      const replies = [
+        "hey lol",
+        "that’s cool",
+        "wanna call later?",
+        "i saw your message",
+        "omg really",
+        "okayyy",
+        "send a snap 😭"
+      ];
+
+      const text = replies[Math.floor(Math.random() * replies.length)];
+
+      user.chats[activeChat] = user.chats[activeChat] || [];
+      user.chats[activeChat].push({
+        from: "them",
+        text,
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      });
+
+      updateCurrentUser(user);
+      renderMessages();
+      renderChats();
+    }
+
+    function renderFriends() {
+      const user = getCurrentUser();
+      const box = document.getElementById("friendsList");
+      box.innerHTML = "";
+
+      if (!user.friends.length) {
+        box.innerHTML = '<div class="notice">No friends yet.</div>';
+        return;
+      }
+
+      user.friends.forEach(friend => {
+        const div = document.createElement("div");
+        div.className = "friend-item";
+        div.innerHTML = `
+          <div><b>${friend}</b></div>
+          <button class="btn-dark" onclick="openChat('${escapeQuotes(friend)}')">Chat</button>
+        `;
+        box.appendChild(div);
       });
     }
 
-    function toggleFavorite(name) {
-      const index = favorites.indexOf(name);
-      if (index === -1) {
-        favorites.push(name);
+    function renderChats() {
+      const user = getCurrentUser();
+      const box = document.getElementById("chatList");
+      box.innerHTML = "";
+
+      if (!user.friends.length) {
+        box.innerHTML = '<div class="notice">No chats yet.</div>';
+        return;
+      }
+
+      user.friends.forEach(friend => {
+        const msgs = user.chats[friend] || [];
+        const last = msgs.length ? msgs[msgs.length - 1].text : "No messages yet";
+        const div = document.createElement("div");
+        div.className = "chat-item" + (activeChat === friend ? " active" : "");
+        div.onclick = () => openChat(friend);
+        div.innerHTML = `
+          <div class="chat-name">${friend}</div>
+          <div class="chat-preview">${last}</div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function renderMessages() {
+      const user = getCurrentUser();
+      const nameEl = document.getElementById("activeChatName");
+      const infoEl = document.getElementById("activeChatInfo");
+      const box = document.getElementById("messagesBox");
+
+      if (!activeChat) {
+        nameEl.textContent = "No chat selected";
+        infoEl.textContent = "Pick a friend to start chatting";
+        box.innerHTML = '<div class="notice">No messages yet.</div>';
+        return;
+      }
+
+      nameEl.textContent = activeChat;
+      infoEl.textContent = "Chatting now";
+
+      const msgs = user.chats[activeChat] || [];
+      box.innerHTML = "";
+
+      if (!msgs.length) {
+        box.innerHTML = '<div class="notice">Say hi first.</div>';
+        return;
+      }
+
+      msgs.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "message " + (msg.from === "me" ? "me" : "them");
+        div.innerHTML = `
+          <div>${msg.text}</div>
+          <div class="message-meta">${msg.time}</div>
+        `;
+        box.appendChild(div);
+      });
+
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function buyVIP() {
+      const user = getCurrentUser();
+      if (user.vip) {
+        alert("You already have VIP.");
+        return;
+      }
+      user.vip = true;
+      updateCurrentUser(user);
+      renderProfile();
+      alert("VIP unlocked!");
+    }
+
+    function buyNitro() {
+      const user = getCurrentUser();
+      if (user.nitro) {
+        alert("You already have Nitro.");
+        return;
+      }
+      user.nitro = true;
+      updateCurrentUser(user);
+      renderProfile();
+      alert("Nitro unlocked!");
+    }
+
+    function renderProfile() {
+      const user = getCurrentUser();
+      document.getElementById("profileAvatar").textContent = user.name.charAt(0).toUpperCase();
+      document.getElementById("profileName").textContent = user.name;
+      document.getElementById("welcomeBox").textContent = "Logged in as " + user.email;
+
+      const tags = document.getElementById("profileTags");
+      tags.innerHTML = '<span class="tag">Member</span>';
+      if (user.vip) tags.innerHTML += '<span class="tag vip">VIP</span>';
+      if (user.nitro) tags.innerHTML += '<span class="tag nitro">Nitro</span>';
+    }
+
+    function loadApp() {
+      showScreen("appScreen");
+      renderProfile();
+      renderFriends();
+      renderChats();
+      renderMessages();
+    }
+
+    function escapeQuotes(text) {
+      return text.replace(/'/g, "\\'");
+    }
+
+    function boot() {
+      const session = getSession();
+      const users = getUsers();
+
+      if (session && users[session]) {
+        currentUserEmail = session;
+        loadApp();
       } else {
-        favorites.splice(index, 1);
+        showScreen("authScreen");
       }
-      renderFavorites();
-      updateFavoriteButtons();
     }
 
-    function renderFavorites() {
-      const favoriteItems = document.getElementById("favoriteItems");
-      favoriteItems.innerHTML = "";
-
-      if (favorites.length === 0) {
-        favoriteItems.innerHTML = '<li class="empty">No favorites yet.</li>';
-        return;
-      }
-
-      favorites.forEach(name => {
-        const li = document.createElement("li");
-        li.textContent = name;
-        favoriteItems.appendChild(li);
-      });
-    }
-
-    function updateFavoriteButtons() {
-      document.querySelectorAll(".menu-card").forEach(card => {
-        const name = card.getAttribute("data-name");
-        const button = card.querySelector(".fav-btn");
-        if (!button) return;
-        if (favorites.includes(name)) {
-          button.classList.add("active");
-          button.textContent = "♥";
-        } else {
-          button.classList.remove("active");
-          button.textContent = "♡";
-        }
-      });
-    }
-
-    document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
-      backdrop.addEventListener("click", function(e) {
-        if (e.target === backdrop) {
-          backdrop.classList.remove("show");
-        }
-      });
-    });
-
-    updateCart();
-    renderFavorites();
-    updateFavoriteButtons();
+    boot();
   </script>
 </body>
 </html>
