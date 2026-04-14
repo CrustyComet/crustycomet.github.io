@@ -3,53 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vdeio Chat</title>
+  <title>Vdeio Chat Ultimate</title>
   <style>
     * { box-sizing: border-box; }
 
     :root{
       --yellow:#fffc00;
-      --black:#111111;
+      --yellow2:#ffe45c;
+      --black:#0f0f14;
       --white:#ffffff;
-      --gray:#f3f4f6;
-      --line:#d1d5db;
-      --blue:#60a5fa;
-      --purple:#a855f7;
+      --gray:#eef1f5;
+      --line:#d7dbe2;
+      --blue:#69b7ff;
+      --purple:#9b5cff;
+      --pink:#ff5cc8;
       --green:#22c55e;
       --red:#ef4444;
+      --orange:#ff8c42;
+      --card:rgba(255,255,255,0.88);
+      --shadow:0 12px 30px rgba(0,0,0,0.18);
     }
 
     body{
       margin:0;
       font-family:Arial, sans-serif;
-      background:var(--yellow);
       color:var(--black);
-    }
-
-    .hidden{ display:none !important; }
-
-    .app{
       min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      background:
+        radial-gradient(circle at 20% 20%, #fff98b 0%, transparent 18%),
+        radial-gradient(circle at 80% 10%, #ff88d8 0%, transparent 16%),
+        radial-gradient(circle at 85% 85%, #87b8ff 0%, transparent 18%),
+        radial-gradient(circle at 15% 80%, #c993ff 0%, transparent 14%),
+        linear-gradient(135deg, #fffc00 0%, #ffd54a 25%, #ffc2ec 55%, #bda4ff 78%, #7cc8ff 100%);
+      background-attachment: fixed;
     }
+
+    .hidden { display:none !important; }
+
+    button, input, textarea, select {
+      font-family: inherit;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+      border-radius:14px;
+      transition:0.18s ease;
+    }
+
+    button:hover{
+      transform: translateY(-1px);
+    }
+
+    .btn-black{ background:var(--black); color:white; }
+    .btn-white{ background:white; color:var(--black); border:2px solid var(--black); }
+    .btn-yellow{ background:var(--yellow); color:var(--black); border:2px solid var(--black); }
+    .btn-blue{ background:var(--blue); color:var(--black); }
+    .btn-purple{ background:var(--purple); color:white; }
+    .btn-green{ background:var(--green); color:white; }
+    .btn-red{ background:var(--red); color:white; }
+    .btn-orange{ background:var(--orange); color:white; }
 
     .topbar{
-      background:var(--black);
-      color:var(--white);
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
       position:sticky;
       top:0;
-      z-index:20;
+      z-index:50;
+      padding:14px 16px;
+      background:rgba(15,15,20,0.92);
+      color:white;
+      backdrop-filter: blur(10px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
     }
 
     .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand-badge{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      background:var(--yellow);
+      color:var(--black);
+      display:flex;
+      align-items:center;
+      justify-content:center;
       font-size:24px;
-      font-weight:800;
+      font-weight:900;
+      flex-shrink:0;
+    }
+
+    .brand-title{
+      font-size:24px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .brand-sub{
+      font-size:12px;
+      opacity:0.8;
+      margin-top:4px;
     }
 
     .top-actions{
@@ -58,41 +119,39 @@
       flex-wrap:wrap;
     }
 
-    button{
-      border:none;
-      border-radius:12px;
+    .top-actions button{
       padding:10px 14px;
-      font-weight:700;
-      cursor:pointer;
     }
 
-    .btn-dark{ background:var(--black); color:var(--white); }
-    .btn-light{ background:var(--white); color:var(--black); }
-    .btn-blue{ background:var(--blue); color:var(--black); }
-    .btn-purple{ background:var(--purple); color:var(--white); }
-    .btn-green{ background:var(--green); color:var(--white); }
-    .btn-red{ background:var(--red); color:var(--white); }
-
-    .screen{
-      padding:16px;
-      max-width:1200px;
-      width:100%;
+    .screen-wrap{
+      max-width:1450px;
       margin:0 auto;
+      padding:18px;
     }
 
-    .auth-wrap{
-      max-width:420px;
-      margin:40px auto;
-      background:var(--white);
+    .auth-box{
+      max-width:460px;
+      margin:36px auto;
+      background:var(--card);
       border:3px solid var(--black);
-      border-radius:24px;
-      padding:20px;
-      box-shadow:0 10px 0 var(--black);
+      border-radius:28px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
-    .auth-wrap h1{
-      margin-top:0;
-      font-size:32px;
+    .auth-box h1{
+      margin:0 0 10px;
+      font-size:34px;
+    }
+
+    .auth-note{
+      background:white;
+      border:2px solid var(--black);
+      border-radius:16px;
+      padding:12px 14px;
+      margin-bottom:16px;
+      font-weight:700;
     }
 
     .field{
@@ -101,66 +160,145 @@
 
     .field label{
       display:block;
-      font-weight:700;
+      font-weight:800;
       margin-bottom:6px;
     }
 
-    .field input, .field textarea{
+    .field input,
+    .field textarea,
+    .field select{
       width:100%;
-      padding:12px;
+      padding:12px 14px;
+      border-radius:14px;
       border:2px solid var(--black);
-      border-radius:12px;
       font-size:16px;
+      background:white;
+    }
+
+    .field textarea{
+      min-height:90px;
+      resize:vertical;
     }
 
     .auth-switch{
       margin-top:12px;
-      font-size:14px;
       font-weight:700;
-      cursor:pointer;
       text-decoration:underline;
+      cursor:pointer;
     }
 
     .main-grid{
       display:grid;
-      grid-template-columns:280px 1fr 280px;
+      grid-template-columns:300px minmax(0,1fr) 320px;
       gap:16px;
-      padding:16px;
-      max-width:1400px;
-      width:100%;
-      margin:0 auto;
+      align-items:start;
     }
 
     .panel{
-      background:var(--white);
+      background:var(--card);
       border:3px solid var(--black);
-      border-radius:22px;
-      padding:14px;
-      min-height:200px;
+      border-radius:24px;
+      padding:16px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
     .panel h3{
-      margin-top:0;
+      margin:0 0 12px;
+      font-size:23px;
+    }
+
+    .panel h4{
+      margin:16px 0 10px;
+      font-size:18px;
+    }
+
+    .notice{
+      background:white;
+      border:2px solid var(--black);
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:700;
       margin-bottom:12px;
-      font-size:22px;
     }
 
     .profile-card{
       text-align:center;
     }
 
+    .avatar-wrap{
+      position:relative;
+      width:104px;
+      height:104px;
+      margin:0 auto 12px;
+    }
+
     .avatar{
-      width:80px;
-      height:80px;
+      width:104px;
+      height:104px;
       border-radius:50%;
+      border:4px solid var(--black);
+      object-fit:cover;
+      background:var(--black);
+      display:block;
+    }
+
+    .avatar-fallback{
+      width:104px;
+      height:104px;
+      border-radius:50%;
+      border:4px solid var(--black);
       background:var(--black);
       color:var(--yellow);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:30px;
-      font-weight:800;
-      margin:0 auto 10px;
+      font-size:40px;
+      font-weight:900;
+    }
+
+    .edit-avatar-btn{
+      position:absolute;
+      right:-4px;
+      bottom:-4px;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:3px solid var(--black);
+      background:var(--yellow);
+      font-size:18px;
+      padding:0;
+    }
+
+    .username{
+      font-size:26px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .handle{
+      opacity:0.7;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .bio{
+      background:white;
+      border:2px solid var(--black);
+      border-radius:14px;
+      padding:10px 12px;
+      font-size:14px;
+      line-height:1.45;
+      margin-top:10px;
+      min-height:48px;
+    }
+
+    .tag-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      margin-top:10px;
     }
 
     .tag{
@@ -168,26 +306,48 @@
       padding:6px 10px;
       border-radius:999px;
       font-size:12px;
-      font-weight:800;
-      margin:4px 4px 0 0;
-      background:var(--gray);
+      font-weight:900;
       border:2px solid var(--black);
+      background:#f4f4f4;
     }
 
     .tag.vip{ background:var(--yellow); }
     .tag.nitro{ background:var(--purple); color:white; }
+    .tag.streak{ background:#ffb84d; }
 
-    .list{
-      display:flex;
-      flex-direction:column;
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
       gap:10px;
+      margin-top:12px;
     }
 
-    .friend-item, .chat-item, .shop-item{
+    .stat-box{
+      background:white;
       border:2px solid var(--black);
       border-radius:16px;
       padding:10px;
-      background:var(--gray);
+      text-align:center;
+    }
+
+    .stat-box b{
+      font-size:20px;
+      display:block;
+    }
+
+    .scroll-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:250px;
+      overflow:auto;
+    }
+
+    .item{
+      background:white;
+      border:2px solid var(--black);
+      border-radius:16px;
+      padding:10px;
     }
 
     .friend-item{
@@ -197,29 +357,68 @@
       gap:8px;
     }
 
-    .chat-item{
-      cursor:pointer;
-      background:white;
+    .friend-left{
+      min-width:0;
     }
 
-    .chat-item.active{
+    .friend-name{
+      font-weight:900;
+    }
+
+    .friend-sub{
+      font-size:12px;
+      opacity:0.75;
+      margin-top:3px;
+    }
+
+    .friend-actions{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    .friend-actions button{
+      padding:8px 10px;
+      font-size:12px;
+    }
+
+    .story-list{
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding-bottom:4px;
+    }
+
+    .story-card{
+      min-width:90px;
+      text-align:center;
+    }
+
+    .story-circle{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      border:4px solid var(--black);
       background:var(--yellow);
+      margin:0 auto 8px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      font-weight:900;
     }
 
-    .chat-name{
-      font-weight:800;
+    .story-circle img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
-    .chat-preview{
-      font-size:13px;
-      color:#444;
-      margin-top:4px;
-    }
-
-    .chat-area{
+    .chat-layout{
       display:flex;
       flex-direction:column;
-      height:70vh;
+      height:74vh;
     }
 
     .chat-header{
@@ -227,9 +426,34 @@
       justify-content:space-between;
       align-items:center;
       gap:10px;
-      border-bottom:2px solid var(--line);
+      border-bottom:2px solid rgba(0,0,0,0.1);
       padding-bottom:10px;
       margin-bottom:10px;
+    }
+
+    .chat-header-left{
+      min-width:0;
+    }
+
+    .chat-title{
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .chat-sub{
+      font-size:13px;
+      opacity:0.7;
+      margin-top:4px;
+    }
+
+    .chat-top-buttons{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .chat-top-buttons button{
+      padding:10px 12px;
     }
 
     .messages{
@@ -242,11 +466,12 @@
     }
 
     .message{
-      max-width:75%;
-      padding:10px 12px;
-      border-radius:16px;
+      max-width:78%;
+      padding:11px 13px;
+      border-radius:18px;
       border:2px solid var(--black);
-      word-wrap:break-word;
+      word-break:break-word;
+      background:white;
     }
 
     .message.me{
@@ -256,73 +481,252 @@
 
     .message.them{
       align-self:flex-start;
-      background:var(--gray);
+      background:#f3f5f9;
     }
 
     .message-meta{
       font-size:11px;
       opacity:0.7;
-      margin-top:4px;
+      margin-top:5px;
     }
 
     .composer{
-      display:flex;
-      gap:8px;
       margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:8px;
     }
 
     .composer input{
-      flex:1;
-      padding:12px;
-      border:2px solid var(--black);
+      width:100%;
+      padding:12px 14px;
       border-radius:14px;
+      border:2px solid var(--black);
       font-size:16px;
+      background:white;
     }
 
-    .notice{
-      margin:12px 0;
+    .composer button{
+      padding:12px 14px;
+    }
+
+    .request-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+    }
+
+    .request-actions{
+      display:flex;
+      gap:6px;
+    }
+
+    .shop-card{
       background:white;
       border:2px solid var(--black);
-      border-radius:14px;
-      padding:10px 12px;
+      border-radius:18px;
+      padding:12px;
+      margin-bottom:10px;
+    }
+
+    .shop-card .title{
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .shop-card .desc{
+      font-size:14px;
+      opacity:0.8;
+      margin:6px 0 10px;
+    }
+
+    .settings-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      background:white;
+      border:2px solid var(--black);
+      border-radius:16px;
+      padding:12px;
+      margin-bottom:10px;
+    }
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:100;
+    }
+
+    .modal-backdrop.show{
+      display:flex;
+    }
+
+    .modal{
+      width:100%;
+      max-width:540px;
+      max-height:90vh;
+      overflow:auto;
+      background:rgba(255,255,255,0.95);
+      border:3px solid var(--black);
+      border-radius:24px;
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .modal h2{
+      margin-top:0;
+      font-size:28px;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .modal-actions button{
+      padding:12px 14px;
+      flex:1;
+    }
+
+    .call-screen{
+      text-align:center;
+      padding:10px 0;
+    }
+
+    .call-big-avatar{
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      border:4px solid var(--black);
+      background:var(--yellow);
+      margin:10px auto 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:42px;
+      font-weight:900;
+      overflow:hidden;
+    }
+
+    .call-big-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .call-name{
+      font-size:30px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .call-status{
+      opacity:0.75;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .call-actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .call-actions button{
+      min-width:110px;
+      padding:14px 16px;
+    }
+
+    .empty{
+      background:white;
+      border:2px dashed var(--black);
+      border-radius:16px;
+      padding:12px;
+      text-align:center;
       font-weight:700;
     }
 
-    .small{
-      font-size:13px;
-      color:#333;
-    }
-
-    @media (max-width: 1000px){
+    @media (max-width: 1100px){
       .main-grid{
         grid-template-columns:1fr;
       }
-      .chat-area{
-        height:55vh;
+      .chat-layout{
+        height:60vh;
+      }
+    }
+
+    @media (max-width: 700px){
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .brand-title{
+        font-size:20px;
+      }
+
+      .screen-wrap{
+        padding:12px;
+      }
+
+      .composer{
+        grid-template-columns:1fr;
+      }
+
+      .mini-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .chat-top-buttons,
+      .friend-actions,
+      .request-actions,
+      .modal-actions,
+      .call-actions{
+        flex-direction:column;
       }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="brand">👻 Vdeio Chat</div>
-      <div class="top-actions">
-        <button class="btn-light" onclick="showScreen('authScreen')">Auth</button>
-        <button class="btn-light hidden" id="logoutBtn" onclick="logout()">Log Out</button>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-badge">👻</div>
+      <div>
+        <div class="brand-title">Vdeio Chat Ultimate</div>
+        <div class="brand-sub">stories • chats • calls • friends • vip • nitro</div>
       </div>
     </div>
 
-    <div id="authScreen" class="screen">
-      <div class="auth-wrap">
+    <div class="top-actions">
+      <button class="btn-white" onclick="showOnly('authScreen')">Auth</button>
+      <button class="btn-white hidden" id="logoutBtn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <div class="screen-wrap">
+    <div id="authScreen">
+      <div class="auth-box">
         <h1 id="authTitle">Sign Up</h1>
+        <div class="auth-note" id="authNote">Create an account and it stays saved on this browser.</div>
 
-        <div class="notice" id="authNotice">Create an account to start chatting.</div>
-
-        <div id="signupFields">
+        <div id="signupExtras">
           <div class="field">
             <label>Display Name</label>
-            <input id="signupName" placeholder="Your username">
+            <input id="signupName" placeholder="Your display name">
+          </div>
+          <div class="field">
+            <label>Description / Bio</label>
+            <textarea id="signupBio" placeholder="Tell people about yourself..."></textarea>
           </div>
         </div>
 
@@ -336,7 +740,7 @@
           <input id="authPassword" type="password" placeholder="Password">
         </div>
 
-        <button class="btn-dark" style="width:100%;" id="authMainBtn" onclick="submitAuth()">Create Account</button>
+        <button class="btn-black" style="width:100%; padding:14px;" id="authMainBtn" onclick="submitAuth()">Create Account</button>
         <div class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Already have an account? Log in</div>
       </div>
     </div>
@@ -345,64 +749,165 @@
       <div class="main-grid">
         <div class="panel">
           <div class="profile-card">
-            <div class="avatar" id="profileAvatar">U</div>
-            <h3 id="profileName">User</h3>
-            <div id="profileTags"></div>
+            <div class="avatar-wrap">
+              <div id="avatarContainer"></div>
+              <button class="edit-avatar-btn" onclick="openModal('profileModal')">✎</button>
+            </div>
+
+            <div class="username" id="profileName">User</div>
+            <div class="handle" id="profileHandle">@user</div>
+            <div class="bio" id="profileBio">No bio yet.</div>
+
+            <div class="tag-row" id="profileTags"></div>
+
+            <div class="mini-grid">
+              <div class="stat-box"><b id="friendCount">0</b>Friends</div>
+              <div class="stat-box"><b id="storyCount">0</b>Stories</div>
+            </div>
           </div>
 
           <div class="notice" id="welcomeBox">Welcome!</div>
 
-          <h3>Add Friend</h3>
+          <h4>Add Friend</h4>
           <div class="field">
             <input id="friendNameInput" placeholder="Friend name">
           </div>
-          <button class="btn-green" style="width:100%;" onclick="addFriend()">Add Friend</button>
+          <button class="btn-green" style="width:100%; padding:12px;" onclick="sendFriendRequest()">Send Request</button>
 
-          <h3 style="margin-top:16px;">Friends</h3>
-          <div id="friendsList" class="list"></div>
+          <h4>Friend Requests</h4>
+          <div id="requestList" class="scroll-list"></div>
+
+          <h4>Friends</h4>
+          <div id="friendsList" class="scroll-list"></div>
         </div>
 
         <div class="panel">
-          <div class="chat-area">
+          <div class="story-list" id="storyList"></div>
+
+          <div class="chat-layout" style="margin-top:14px;">
             <div class="chat-header">
-              <div>
-                <div class="chat-name" id="activeChatName">No chat selected</div>
-                <div class="small" id="activeChatInfo">Pick a friend to start chatting</div>
+              <div class="chat-header-left">
+                <div class="chat-title" id="activeChatName">No chat selected</div>
+                <div class="chat-sub" id="activeChatInfo">Choose a friend to start chatting</div>
               </div>
-              <button class="btn-blue" onclick="sendFakeReply()" id="fakeReplyBtn">Fake Reply</button>
+
+              <div class="chat-top-buttons">
+                <button class="btn-blue" onclick="openCall('audio')" id="audioCallBtn">Audio Call</button>
+                <button class="btn-purple" onclick="openCall('video')" id="videoCallBtn">Video Call</button>
+                <button class="btn-yellow" onclick="fakeReply()">Fake Reply</button>
+              </div>
             </div>
 
             <div id="messagesBox" class="messages">
-              <div class="notice">No messages yet.</div>
+              <div class="empty">No messages yet.</div>
             </div>
 
             <div class="composer">
               <input id="messageInput" placeholder="Type a message...">
-              <button class="btn-dark" onclick="sendMessage()">Send</button>
+              <button class="btn-white" onclick="sendSnapMessage()">📸 Snap</button>
+              <button class="btn-black" onclick="sendMessage()">Send</button>
             </div>
           </div>
         </div>
 
         <div class="panel">
+          <h3>Chats</h3>
+          <div id="chatList" class="scroll-list"></div>
+
+          <h3 style="margin-top:16px;">Stories</h3>
+          <button class="btn-orange" style="width:100%; padding:12px; margin-bottom:10px;" onclick="openModal('storyModal')">Add Story</button>
+
           <h3>Shop</h3>
-          <div class="shop-item">
-            <div class="chat-name">VIP</div>
-            <div class="small">Special badge + cool status</div>
-            <div style="margin-top:8px;">
-              <button class="btn-green" onclick="buyVIP()">Buy VIP</button>
-            </div>
+          <div class="shop-card">
+            <div class="title">VIP</div>
+            <div class="desc">Gold VIP badge and extra flex.</div>
+            <button class="btn-green" onclick="buyVIP()">Buy VIP</button>
           </div>
 
-          <div class="shop-item" style="margin-top:10px;">
-            <div class="chat-name">Nitro</div>
-            <div class="small">Purple badge + premium flex vibes</div>
-            <div style="margin-top:8px;">
-              <button class="btn-purple" onclick="buyNitro()">Buy Nitro</button>
-            </div>
+          <div class="shop-card">
+            <div class="title">Nitro</div>
+            <div class="desc">Purple Nitro badge and premium look.</div>
+            <button class="btn-purple" onclick="buyNitro()">Buy Nitro</button>
           </div>
 
-          <h3 style="margin-top:16px;">Chats</h3>
-          <div id="chatList" class="list"></div>
+          <h3>Settings</h3>
+          <div class="settings-row">
+            <div>
+              <b>Profile</b>
+              <div style="font-size:12px; opacity:0.75;">Edit your name, bio, and image</div>
+            </div>
+            <button class="btn-white" onclick="openModal('profileModal')">Open</button>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <b>Clear Demo Replies</b>
+              <div style="font-size:12px; opacity:0.75;">Reset auto-reply vibe</div>
+            </div>
+            <button class="btn-red" onclick="clearMessages()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="profileModal">
+    <div class="modal">
+      <h2>Edit Profile</h2>
+
+      <div class="field">
+        <label>Display Name</label>
+        <input id="editName" placeholder="Your display name">
+      </div>
+
+      <div class="field">
+        <label>Bio / Description</label>
+        <textarea id="editBio" placeholder="Write your bio"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Upload Profile Image</label>
+        <input id="editAvatar" type="file" accept="image/*">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-black" onclick="saveProfile()">Save Profile</button>
+        <button class="btn-white" onclick="closeModal('profileModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="storyModal">
+    <div class="modal">
+      <h2>Add Story</h2>
+
+      <div class="field">
+        <label>Story Text</label>
+        <input id="storyText" placeholder="What's happening?">
+      </div>
+
+      <div class="field">
+        <label>Story Image (optional)</label>
+        <input id="storyImage" type="file" accept="image/*">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-orange" onclick="saveStory()">Post Story</button>
+        <button class="btn-white" onclick="closeModal('storyModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="callModal">
+    <div class="modal">
+      <div class="call-screen">
+        <div class="call-big-avatar" id="callAvatar">A</div>
+        <div class="call-name" id="callName">Friend</div>
+        <div class="call-status" id="callStatus">Calling...</div>
+
+        <div class="call-actions">
+          <button class="btn-green" onclick="answerCall()">Answer</button>
+          <button class="btn-red" onclick="endCall()">End</button>
         </div>
       </div>
     </div>
@@ -412,25 +917,26 @@
     let authMode = "signup";
     let currentUserEmail = null;
     let activeChat = null;
+    let currentCallType = "audio";
 
     function getUsers() {
-      return JSON.parse(localStorage.getItem("vdeio_users") || "{}");
+      return JSON.parse(localStorage.getItem("vdeio_ultimate_users") || "{}");
     }
 
     function saveUsers(users) {
-      localStorage.setItem("vdeio_users", JSON.stringify(users));
+      localStorage.setItem("vdeio_ultimate_users", JSON.stringify(users));
     }
 
     function getSession() {
-      return localStorage.getItem("vdeio_session");
+      return localStorage.getItem("vdeio_ultimate_session");
     }
 
     function saveSession(email) {
-      localStorage.setItem("vdeio_session", email);
+      localStorage.setItem("vdeio_ultimate_session", email);
     }
 
     function clearSession() {
-      localStorage.removeItem("vdeio_session");
+      localStorage.removeItem("vdeio_ultimate_session");
     }
 
     function getCurrentUser() {
@@ -445,7 +951,29 @@
       saveUsers(users);
     }
 
-    function showScreen(id) {
+    function defaultUser(name, email, bio) {
+      return {
+        name,
+        email,
+        password: "",
+        bio: bio || "",
+        avatar: "",
+        vip: false,
+        nitro: false,
+        friends: [],
+        requests: [],
+        chats: {},
+        stories: [
+          { text: "Hey! I just joined Vdeio Chat 🎉", image: "", time: nowText() }
+        ]
+      };
+    }
+
+    function nowText() {
+      return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function showOnly(id) {
       document.getElementById("authScreen").classList.add("hidden");
       document.getElementById("appScreen").classList.add("hidden");
       document.getElementById(id).classList.remove("hidden");
@@ -454,25 +982,16 @@
 
     function toggleAuthMode() {
       authMode = authMode === "signup" ? "login" : "signup";
-      const title = document.getElementById("authTitle");
-      const mainBtn = document.getElementById("authMainBtn");
-      const switchBtn = document.getElementById("authSwitch");
-      const signupFields = document.getElementById("signupFields");
-      const notice = document.getElementById("authNotice");
 
-      if (authMode === "signup") {
-        title.textContent = "Sign Up";
-        mainBtn.textContent = "Create Account";
-        switchBtn.textContent = "Already have an account? Log in";
-        signupFields.classList.remove("hidden");
-        notice.textContent = "Create an account to start chatting.";
-      } else {
-        title.textContent = "Log In";
-        mainBtn.textContent = "Log In";
-        switchBtn.textContent = "Need an account? Sign up";
-        signupFields.classList.add("hidden");
-        notice.textContent = "Log in to keep chatting.";
-      }
+      document.getElementById("authTitle").textContent = authMode === "signup" ? "Sign Up" : "Log In";
+      document.getElementById("authMainBtn").textContent = authMode === "signup" ? "Create Account" : "Log In";
+      document.getElementById("authSwitch").textContent = authMode === "signup"
+        ? "Already have an account? Log in"
+        : "Need an account? Sign up";
+      document.getElementById("authNote").textContent = authMode === "signup"
+        ? "Create an account and it stays saved on this browser."
+        : "Log in to continue chatting.";
+      document.getElementById("signupExtras").classList.toggle("hidden", authMode !== "signup");
     }
 
     function submitAuth() {
@@ -480,6 +999,7 @@
       const email = document.getElementById("authEmail").value.trim().toLowerCase();
       const password = document.getElementById("authPassword").value.trim();
       const name = document.getElementById("signupName").value.trim();
+      const bio = document.getElementById("signupBio").value.trim();
 
       if (!email || !password) {
         alert("Fill in email and password.");
@@ -496,16 +1016,9 @@
           return;
         }
 
-        users[email] = {
-          name,
-          email,
-          password,
-          vip: false,
-          nitro: false,
-          friends: [],
-          chats: {}
-        };
-
+        const user = defaultUser(name, email, bio);
+        user.password = password;
+        users[email] = user;
         saveUsers(users);
         currentUserEmail = email;
         saveSession(email);
@@ -515,7 +1028,6 @@
           alert("Wrong email or password.");
           return;
         }
-
         currentUserEmail = email;
         saveSession(email);
         loadApp();
@@ -526,10 +1038,53 @@
       clearSession();
       currentUserEmail = null;
       activeChat = null;
-      showScreen("authScreen");
+      showOnly("authScreen");
     }
 
-    function addFriend() {
+    function openModal(id) {
+      document.getElementById(id).classList.add("show");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("show");
+    }
+
+    function renderAvatarHTML(user, size = "small") {
+      if (user.avatar) {
+        return `<img src="${user.avatar}" alt="avatar">`;
+      }
+      return `<div class="${size === 'big' ? '' : ''}">${user.name.charAt(0).toUpperCase()}</div>`;
+    }
+
+    function setAvatarContainer() {
+      const user = getCurrentUser();
+      const box = document.getElementById("avatarContainer");
+      if (user.avatar) {
+        box.innerHTML = `<img src="${user.avatar}" class="avatar" alt="avatar">`;
+      } else {
+        box.innerHTML = `<div class="avatar-fallback">${user.name.charAt(0).toUpperCase()}</div>`;
+      }
+    }
+
+    function renderProfile() {
+      const user = getCurrentUser();
+      setAvatarContainer();
+      document.getElementById("profileName").textContent = user.name;
+      document.getElementById("profileHandle").textContent = "@" + user.name.toLowerCase().replace(/\s+/g, "");
+      document.getElementById("profileBio").textContent = user.bio || "No bio yet.";
+      document.getElementById("welcomeBox").textContent = "Logged in as " + user.email;
+      document.getElementById("friendCount").textContent = user.friends.length;
+      document.getElementById("storyCount").textContent = user.stories.length;
+
+      const tags = [];
+      tags.push('<span class="tag">Member</span>');
+      if (user.vip) tags.push('<span class="tag vip">VIP</span>');
+      if (user.nitro) tags.push('<span class="tag nitro">Nitro</span>');
+      if (getBestStreak() > 0) tags.push('<span class="tag streak">Streak ' + getBestStreak() + '</span>');
+      document.getElementById("profileTags").innerHTML = tags.join("");
+    }
+
+    function sendFriendRequest() {
       const user = getCurrentUser();
       const name = document.getElementById("friendNameInput").value.trim();
       if (!name) {
@@ -538,77 +1093,68 @@
       }
 
       if (user.friends.includes(name)) {
-        alert("That friend is already added.");
+        alert("That friend is already in your friends.");
         return;
       }
 
-      user.friends.push(name);
+      if (user.requests.includes(name)) {
+        alert("Already requested.");
+        return;
+      }
+
+      user.requests.push(name);
       user.chats[name] = user.chats[name] || [];
       updateCurrentUser(user);
       document.getElementById("friendNameInput").value = "";
+      renderRequests();
+      renderChats();
+    }
+
+    function acceptRequest(name) {
+      const user = getCurrentUser();
+      user.requests = user.requests.filter(n => n !== name);
+      if (!user.friends.includes(name)) user.friends.push(name);
+      user.chats[name] = user.chats[name] || [
+        { from: "them", text: "Hey! We are friends now 🎉", time: nowText(), type: "text" }
+      ];
+      updateCurrentUser(user);
+      renderRequests();
       renderFriends();
       renderChats();
+      renderProfile();
     }
 
-    function openChat(friendName) {
-      activeChat = friendName;
-      renderChats();
-      renderMessages();
-    }
-
-    function sendMessage() {
+    function removeRequest(name) {
       const user = getCurrentUser();
-      if (!activeChat) {
-        alert("Pick a friend first.");
+      user.requests = user.requests.filter(n => n !== name);
+      updateCurrentUser(user);
+      renderRequests();
+    }
+
+    function renderRequests() {
+      const user = getCurrentUser();
+      const box = document.getElementById("requestList");
+      box.innerHTML = "";
+      if (!user.requests.length) {
+        box.innerHTML = '<div class="empty">No requests yet.</div>';
         return;
       }
 
-      const input = document.getElementById("messageInput");
-      const text = input.value.trim();
-      if (!text) return;
-
-      user.chats[activeChat] = user.chats[activeChat] || [];
-      user.chats[activeChat].push({
-        from: "me",
-        text,
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      user.requests.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "item request-item";
+        div.innerHTML = `
+          <div>
+            <div class="friend-name">${name}</div>
+            <div class="friend-sub">Pending friend request</div>
+          </div>
+          <div class="request-actions">
+            <button class="btn-green" onclick="acceptRequest('${escapeQuotes(name)}')">Accept</button>
+            <button class="btn-red" onclick="removeRequest('${escapeQuotes(name)}')">Remove</button>
+          </div>
+        `;
+        box.appendChild(div);
       });
-
-      updateCurrentUser(user);
-      input.value = "";
-      renderMessages();
-      renderChats();
-    }
-
-    function sendFakeReply() {
-      const user = getCurrentUser();
-      if (!activeChat) {
-        alert("Pick a friend first.");
-        return;
-      }
-
-      const replies = [
-        "hey lol",
-        "that’s cool",
-        "wanna call later?",
-        "i saw your message",
-        "omg really",
-        "okayyy",
-        "send a snap 😭"
-      ];
-
-      const text = replies[Math.floor(Math.random() * replies.length)];
-
-      user.chats[activeChat] = user.chats[activeChat] || [];
-      user.chats[activeChat].push({
-        from: "them",
-        text,
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-      });
-
-      updateCurrentUser(user);
-      renderMessages();
-      renderChats();
     }
 
     function renderFriends() {
@@ -617,19 +1163,48 @@
       box.innerHTML = "";
 
       if (!user.friends.length) {
-        box.innerHTML = '<div class="notice">No friends yet.</div>';
+        box.innerHTML = '<div class="empty">No friends yet.</div>';
         return;
       }
 
       user.friends.forEach(friend => {
+        const streak = getStreak(friend);
         const div = document.createElement("div");
-        div.className = "friend-item";
+        div.className = "item friend-item";
         div.innerHTML = `
-          <div><b>${friend}</b></div>
-          <button class="btn-dark" onclick="openChat('${escapeQuotes(friend)}')">Chat</button>
+          <div class="friend-left">
+            <div class="friend-name">${friend}</div>
+            <div class="friend-sub">${streak > 0 ? "🔥 Streak: " + streak : "Tap chat to start talking"}</div>
+          </div>
+          <div class="friend-actions">
+            <button class="btn-black" onclick="openChat('${escapeQuotes(friend)}')">Chat</button>
+            <button class="btn-blue" onclick="openCall('audio', '${escapeQuotes(friend)}')">Call</button>
+          </div>
         `;
         box.appendChild(div);
       });
+    }
+
+    function getStreak(friend) {
+      const user = getCurrentUser();
+      const msgs = user.chats[friend] || [];
+      return Math.min(msgs.length, 99);
+    }
+
+    function getBestStreak() {
+      const user = getCurrentUser();
+      let best = 0;
+      user.friends.forEach(friend => {
+        best = Math.max(best, getStreak(friend));
+      });
+      return best;
+    }
+
+    function openChat(friend) {
+      activeChat = friend;
+      renderFriends();
+      renderChats();
+      renderMessages();
     }
 
     function renderChats() {
@@ -638,7 +1213,7 @@
       box.innerHTML = "";
 
       if (!user.friends.length) {
-        box.innerHTML = '<div class="notice">No chats yet.</div>';
+        box.innerHTML = '<div class="empty">No chats yet.</div>';
         return;
       }
 
@@ -646,12 +1221,16 @@
         const msgs = user.chats[friend] || [];
         const last = msgs.length ? msgs[msgs.length - 1].text : "No messages yet";
         const div = document.createElement("div");
-        div.className = "chat-item" + (activeChat === friend ? " active" : "");
+        div.className = "item" + (activeChat === friend ? " chat-active" : "");
+        div.style.cursor = "pointer";
         div.onclick = () => openChat(friend);
         div.innerHTML = `
-          <div class="chat-name">${friend}</div>
-          <div class="chat-preview">${last}</div>
+          <div class="friend-name">${friend}</div>
+          <div class="friend-sub">${last}</div>
         `;
+        if (activeChat === friend) {
+          div.style.background = "#fffc00";
+        }
         box.appendChild(div);
       });
     }
@@ -664,19 +1243,19 @@
 
       if (!activeChat) {
         nameEl.textContent = "No chat selected";
-        infoEl.textContent = "Pick a friend to start chatting";
-        box.innerHTML = '<div class="notice">No messages yet.</div>';
+        infoEl.textContent = "Choose a friend to start chatting";
+        box.innerHTML = '<div class="empty">No messages yet.</div>';
         return;
       }
 
       nameEl.textContent = activeChat;
-      infoEl.textContent = "Chatting now";
+      infoEl.textContent = "🔥 Streak: " + getStreak(activeChat);
 
       const msgs = user.chats[activeChat] || [];
       box.innerHTML = "";
 
       if (!msgs.length) {
-        box.innerHTML = '<div class="notice">Say hi first.</div>';
+        box.innerHTML = '<div class="empty">Say hi first.</div>';
         return;
       }
 
@@ -684,13 +1263,110 @@
         const div = document.createElement("div");
         div.className = "message " + (msg.from === "me" ? "me" : "them");
         div.innerHTML = `
-          <div>${msg.text}</div>
+          <div>${msg.type === "snap" ? "📸 " : ""}${msg.text}</div>
           <div class="message-meta">${msg.time}</div>
         `;
         box.appendChild(div);
       });
 
       box.scrollTop = box.scrollHeight;
+    }
+
+    function sendMessage() {
+      if (!activeChat) {
+        alert("Choose a friend first.");
+        return;
+      }
+
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const user = getCurrentUser();
+      user.chats[activeChat] = user.chats[activeChat] || [];
+      user.chats[activeChat].push({
+        from: "me",
+        text,
+        time: nowText(),
+        type: "text"
+      });
+      updateCurrentUser(user);
+      input.value = "";
+      renderMessages();
+      renderChats();
+      renderFriends();
+      renderProfile();
+    }
+
+    function sendSnapMessage() {
+      if (!activeChat) {
+        alert("Choose a friend first.");
+        return;
+      }
+
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim() || "New snap";
+      const user = getCurrentUser();
+      user.chats[activeChat] = user.chats[activeChat] || [];
+      user.chats[activeChat].push({
+        from: "me",
+        text,
+        time: nowText(),
+        type: "snap"
+      });
+      updateCurrentUser(user);
+      input.value = "";
+      renderMessages();
+      renderChats();
+      renderFriends();
+      renderProfile();
+    }
+
+    function fakeReply() {
+      if (!activeChat) {
+        alert("Choose a friend first.");
+        return;
+      }
+
+      const replies = [
+        "hey lol",
+        "that’s cool",
+        "wanna call?",
+        "omg 😭",
+        "i saw your snap",
+        "okayy",
+        "send another one",
+        "that was funny",
+        "brb"
+      ];
+
+      const user = getCurrentUser();
+      user.chats[activeChat] = user.chats[activeChat] || [];
+      user.chats[activeChat].push({
+        from: "them",
+        text: replies[Math.floor(Math.random() * replies.length)],
+        time: nowText(),
+        type: "text"
+      });
+      updateCurrentUser(user);
+      renderMessages();
+      renderChats();
+      renderFriends();
+      renderProfile();
+    }
+
+    function clearMessages() {
+      if (!activeChat) {
+        alert("Choose a chat first.");
+        return;
+      }
+      const user = getCurrentUser();
+      user.chats[activeChat] = [];
+      updateCurrentUser(user);
+      renderMessages();
+      renderChats();
+      renderFriends();
+      renderProfile();
     }
 
     function buyVIP() {
@@ -717,40 +1393,164 @@
       alert("Nitro unlocked!");
     }
 
-    function renderProfile() {
+    function openProfileEditor() {
       const user = getCurrentUser();
-      document.getElementById("profileAvatar").textContent = user.name.charAt(0).toUpperCase();
-      document.getElementById("profileName").textContent = user.name;
-      document.getElementById("welcomeBox").textContent = "Logged in as " + user.email;
-
-      const tags = document.getElementById("profileTags");
-      tags.innerHTML = '<span class="tag">Member</span>';
-      if (user.vip) tags.innerHTML += '<span class="tag vip">VIP</span>';
-      if (user.nitro) tags.innerHTML += '<span class="tag nitro">Nitro</span>';
+      document.getElementById("editName").value = user.name || "";
+      document.getElementById("editBio").value = user.bio || "";
+      openModal("profileModal");
     }
 
-    function loadApp() {
-      showScreen("appScreen");
-      renderProfile();
-      renderFriends();
-      renderChats();
-      renderMessages();
+    function saveProfile() {
+      const user = getCurrentUser();
+      const newName = document.getElementById("editName").value.trim();
+      const newBio = document.getElementById("editBio").value.trim();
+      const fileInput = document.getElementById("editAvatar");
+      if (!newName) {
+        alert("Enter a display name.");
+        return;
+      }
+
+      user.name = newName;
+      user.bio = newBio;
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          user.avatar = e.target.result;
+          updateCurrentUser(user);
+          renderEverything();
+          closeModal("profileModal");
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        updateCurrentUser(user);
+        renderEverything();
+        closeModal("profileModal");
+      }
+    }
+
+    function saveStory() {
+      const user = getCurrentUser();
+      const text = document.getElementById("storyText").value.trim();
+      const fileInput = document.getElementById("storyImage");
+
+      if (!text && !(fileInput.files && fileInput.files[0])) {
+        alert("Add text or an image.");
+        return;
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          user.stories.unshift({
+            text: text || "New story",
+            image: e.target.result,
+            time: nowText()
+          });
+          updateCurrentUser(user);
+          renderEverything();
+          document.getElementById("storyText").value = "";
+          fileInput.value = "";
+          closeModal("storyModal");
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        user.stories.unshift({
+          text,
+          image: "",
+          time: nowText()
+        });
+        updateCurrentUser(user);
+        renderEverything();
+        document.getElementById("storyText").value = "";
+        closeModal("storyModal");
+      }
+    }
+
+    function renderStories() {
+      const user = getCurrentUser();
+      const box = document.getElementById("storyList");
+      box.innerHTML = "";
+
+      const myStory = document.createElement("div");
+      myStory.className = "story-card";
+      myStory.innerHTML = `
+        <div class="story-circle">${user.avatar ? `<img src="${user.avatar}" alt="story">` : user.name.charAt(0).toUpperCase()}</div>
+        <div style="font-weight:800;">You</div>
+      `;
+      box.appendChild(myStory);
+
+      user.friends.forEach(friend => {
+        const div = document.createElement("div");
+        div.className = "story-card";
+        div.innerHTML = `
+          <div class="story-circle">${friend.charAt(0).toUpperCase()}</div>
+          <div style="font-weight:800;">${friend}</div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function openCall(type, friendName) {
+      if (friendName) activeChat = friendName;
+      if (!activeChat) {
+        alert("Choose a friend first.");
+        return;
+      }
+
+      currentCallType = type;
+      document.getElementById("callName").textContent = activeChat;
+      document.getElementById("callStatus").textContent = (type === "video" ? "Starting video call..." : "Calling...");
+      const callAvatar = document.getElementById("callAvatar");
+      callAvatar.innerHTML = activeChat.charAt(0).toUpperCase();
+      openModal("callModal");
+    }
+
+    function answerCall() {
+      document.getElementById("callStatus").textContent =
+        currentCallType === "video" ? "Video call connected" : "Audio call connected";
+    }
+
+    function endCall() {
+      closeModal("callModal");
     }
 
     function escapeQuotes(text) {
       return text.replace(/'/g, "\\'");
     }
 
+    function renderEverything() {
+      renderProfile();
+      renderRequests();
+      renderFriends();
+      renderChats();
+      renderMessages();
+      renderStories();
+    }
+
+    function loadApp() {
+      showOnly("appScreen");
+      renderEverything();
+    }
+
     function boot() {
-      const session = getSession();
       const users = getUsers();
+      const session = getSession();
 
       if (session && users[session]) {
         currentUserEmail = session;
         loadApp();
       } else {
-        showScreen("authScreen");
+        showOnly("authScreen");
       }
+
+      document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", function(e) {
+          if (e.target === backdrop) backdrop.classList.remove("show");
+        });
+      });
+
+      document.getElementById("profileName").addEventListener("click", openProfileEditor);
     }
 
     boot();
